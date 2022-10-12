@@ -1,35 +1,32 @@
-package com.example.ptakim;
+package com.example.ptakim
 
-public class Node {
-    private int num;
-    private String str;
+class Node {
+    var num: Int
+        private set
+    var str: String
+        private set
 
-    public Node(int num,String str){
-        this.num = num;
-        this.str = str;
+    constructor(num: Int, str: String) {
+        this.num = num
+        this.str = str
     }
 
-    public  Node(String str){
-        this.str = str;
-        this.num = getRandomIntInclusive(0,10000);
-    }
-    public  Node(String str,int min){
-        this.str = str;
-        this.num = getRandomIntInclusive(min,10000);
+    constructor(str: String) {
+        this.str = str
+        num = getRandomIntInclusive(0.0, 10000.0)
     }
 
-    public int getNum(){
-        return num;
+    constructor(str: String, min: Int) {
+        this.str = str
+        num = getRandomIntInclusive(min.toDouble(), 10000.0)
     }
 
-    public String getStr(){
-        return str;
+    private fun getRandomIntInclusive(min: Double, max: Double): Int {
+        var min = min
+        var max = max
+        min = Math.ceil(min)
+        max = Math.floor(max)
+        return Math.floor(Math.random() * (max - min + 1) + min)
+            .toInt() // The maximum is inclusive and the minimum is inclusive
     }
-
-    private int getRandomIntInclusive( double min,double  max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return ((int) Math.floor(Math.random() * (max - min + 1) + min)); // The maximum is inclusive and the minimum is inclusive
-    }
-
 }

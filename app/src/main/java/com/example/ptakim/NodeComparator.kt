@@ -1,16 +1,11 @@
-package com.example.ptakim;
+package com.example.ptakim
 
-import java.util.Comparator;
-
-public class NodeComparator implements Comparator<Node> {
-    @Override
-    public int compare(Node firstNode, Node secondNode) {
-        return  firstNode.getNum() - secondNode.getNum();
+class NodeComparator : Comparator<Node> {
+    override fun compare(firstNode: Node, secondNode: Node): Int {
+        return firstNode.num - secondNode.num
         /*if (firstNode.getNum() > secondNode.getNum())
             return 1;
         else
             return -1;*/
     }
-
-
 }
