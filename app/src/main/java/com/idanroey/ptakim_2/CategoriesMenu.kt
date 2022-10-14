@@ -56,7 +56,7 @@ class CategoriesMenu : AppCompatActivity(), View.OnClickListener  {
     }
 
     fun start(view: View) {
-        if (categories.values.count { true } > 0) {
+        if (categories.values.count { it } > 0) {
             val numberOfWords = this.intent.getIntExtra("numberOfWords", 20)
             val filteredCategories = categories.filter { (_, bool) -> bool}.keys.toIntArray()
             val intent = Intent(this, Game::class.java)
@@ -68,5 +68,6 @@ class CategoriesMenu : AppCompatActivity(), View.OnClickListener  {
 
     override fun onClick(view: View?) {
         if (view!!.id in categories.keys) updateCategories(view)
+        findViewById<Button>(R.id.start).isEnabled = categories.values.count { it } > 0
     }
 }
