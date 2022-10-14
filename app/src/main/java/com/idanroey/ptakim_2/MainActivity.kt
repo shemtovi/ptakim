@@ -5,7 +5,6 @@ import android.widget.TextView
 import android.os.Bundle
 import android.content.Intent
 import android.view.View
-import android.widget.Button
 
 class MainActivity : AppCompatActivity() {
     private var numOfWords = 20
@@ -24,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun plus (view: View?) {
-        if (numOfWords <= 35) {
+        if (numOfWords < 50) {
             numOfWords += 5
             textView!!.text = numOfWords.toString()
         }
