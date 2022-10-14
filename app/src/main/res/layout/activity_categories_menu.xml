@@ -8,25 +8,23 @@
     android:background="#D7CCC8">
 
     <Button
-        android:id="@+id/place"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:id="@+id/places"
+        style="@style/button"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="100dp"
-        android:backgroundTint="#B00020"
-        android:onClick="place"
         android:text="@string/place"
-        app:layout_constraintEnd_toStartOf="@+id/movie"
+        app:layout_constraintEnd_toStartOf="@id/movies"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/movie"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:id="@+id/movies"
+        style="@style/button"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:layout_marginTop="100dp"
-        android:backgroundTint="#B00020"
-        android:onClick="movie"
         android:text="@string/movie"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -34,52 +32,48 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/company"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:id="@+id/companies"
+        style="@style/button"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="8dp"
-        android:backgroundTint="#B00020"
-        android:onClick="company"
         android:text="@string/company"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.538"
-        app:layout_constraintStart_toEndOf="@+id/movie"
+        app:layout_constraintStart_toEndOf="@id/movies"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/object"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:id="@+id/objects"
+        style="@style/button"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="40dp"
-        android:backgroundTint="#B00020"
-        android:onClick="object"
         android:text="@string/object"
-        app:layout_constraintEnd_toStartOf="@+id/culture_leaders"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/place" />
+        app:layout_constraintTop_toBottomOf="@id/places"
+        app:layout_constraintEnd_toStartOf="@id/culture_leaders"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/culture_leaders"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        style="@style/button"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:layout_marginTop="40dp"
-        android:backgroundTint="#B00020"
-        android:onClick="culture_leaders"
         android:text="@string/culture_leaders"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/movie" />
+        app:layout_constraintTop_toBottomOf="@id/movies" />
 
     <Button
-        android:id="@+id/sport"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:id="@+id/sports"
+        style="@style/button"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="24dp"
-        android:backgroundTint="#B00020"
-        android:onClick="sport"
         android:text="@string/sport"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/start"
@@ -87,12 +81,11 @@
 
     <Button
         android:id="@+id/nature"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        style="@style/button"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="40dp"
-        android:backgroundTint="#B00020"
-        android:onClick="nature"
         android:text="@string/nature"
         app:layout_constraintEnd_toEndOf="@+id/start"
         app:layout_constraintStart_toStartOf="parent"
@@ -101,15 +94,14 @@
 
     <Button
         android:id="@+id/scientists"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        style="@style/button"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:layout_marginTop="40dp"
-        android:backgroundTint="#B00020"
-        android:onClick="scientists"
         android:text="@string/scientists"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/culture_leaders"
-        app:layout_constraintTop_toBottomOf="@+id/company" />
+        app:layout_constraintStart_toEndOf="@id/culture_leaders"
+        app:layout_constraintTop_toBottomOf="@id/companies" />
 
     <Button
         android:id="@+id/start"
@@ -117,7 +109,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="#4FC3F7"
         android:clickable="true"
-        android:onClick="Start"
+        android:onClick="start"
         android:text="@string/start"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -133,7 +125,7 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/ic_home"
-        android:onClick="return_button"
+        android:onClick="returnButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

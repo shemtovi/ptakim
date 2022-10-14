@@ -1,8 +1,7 @@
 <resources>
-    <string name="app_name">Ptakim</string>
+    <string name="app_name">Ptakim-2</string>
     <string name="start">start</string>
-    <string name="NumOfWordls">20</string>
-
+    <string name="numOfWords">20</string>
 
     <string name="place">מקומות</string>
     <string name="movie">סרטים סדרות וספרים</string>
@@ -15,14 +14,14 @@
 
     <string name="player_1">קבוצה 1 :</string>
     <string name="player_2">קבוצה 2 :</string>
-    <string name="Start_timer">60</string>
-    <string name="Start_score">0</string>
+    <string name="start_timer">60</string>
+    <string name="start_score">0</string>
 
 
     <string name="dagim">דגים</string>
-    <string name="Start_text">כדי להיות מאושר עשה את דברים העושים אותך מאושר ש.שם-טוב(שלב ראשון)</string>
-    <string name="SecondStage_text">שלב שני מתחיל עכשיו מילה אחת בלבד לתאור. הקבוצה המתחילה היא: </string>
-    <string name="ThirdStage_text">שלב שלישי מתחיל עכשיו פנטומימה בלבד לתאור. הקבוצה המתחילה היא:</string>
-    <string name="EndGame">הקבוצה המנצחת היא:</string>
+    <string name="start_text">כדי להיות מאושר עשה את דברים העושים אותך מאושר ש.שם-טוב(שלב ראשון)</string>
+    <string name="second_stage_text">שלב שני מתחיל עכשיו מילה אחת בלבד לתאור. הקבוצה המתחילה היא: </string>
+    <string name="third_stage_text">שלב שלישי מתחיל עכשיו פנטומימה בלבד לתאור. הקבוצה המתחילה היא:</string>
+    <string name="end_game">הקבוצה המנצחת היא:</string>
 
 </resources>
