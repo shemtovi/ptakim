@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Ptakim-2</string>
+    <string name="choose_categories">בחירת קטגוריות</string>
+    <string name="choose_categories_button">לבחירת הקטגוריות</string>
+    <string name="credits">עידן שם טוב ורועי פביאן</string>
     <string name="start">start</string>
     <string name="numOfWords">20</string>
 
@@ -23,5 +26,7 @@
     <string name="second_stage_text">שלב שני מתחיל עכשיו מילה אחת בלבד לתאור. הקבוצה המתחילה היא: </string>
     <string name="third_stage_text">שלב שלישי מתחיל עכשיו פנטומימה בלבד לתאור. הקבוצה המתחילה היא:</string>
     <string name="end_game">הקבוצה המנצחת היא:</string>
+    <string name="categories">בחירת קטגוריות</string>
+    <string name="game_title">פתקים</string>
 
 </resources>
