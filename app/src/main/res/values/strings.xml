@@ -28,5 +28,7 @@
     <string name="end_game">הקבוצה המנצחת היא:</string>
     <string name="categories">בחירת קטגוריות</string>
     <string name="game_title">פתקים</string>
+    <string name="num_of_cards_title">עם כמה פתקים תרצו לשחק?</string>
+    <string name="start_playing">יאללה בא לי לשחק</string>
 
 </resources>

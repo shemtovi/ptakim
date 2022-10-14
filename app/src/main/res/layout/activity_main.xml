@@ -34,48 +34,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="start"
-        android:text="@string/choose_categories_button"
+        android:text="@string/start_playing"
         style="@style/PrimaryTextButton"
-        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.85"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/numOfWords"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/numOfWords"
-        android:textSize="34sp"
-        app:layout_constraintBottom_toTopOf="@+id/StartButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/plas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="plus"
-        android:text="+"
-        android:textSize="34sp"
-        app:layout_constraintBottom_toTopOf="@+id/StartButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/numOfWords"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/minus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="minus"
-        android:text="-"
-        android:textSize="34sp"
-        app:layout_constraintBottom_toTopOf="@+id/StartButton"
-        app:layout_constraintEnd_toStartOf="@+id/numOfWords"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
