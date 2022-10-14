@@ -15,8 +15,8 @@
     <string name="nature">טבע</string>
     <string name="scientists">מדענים וממציאים</string>
 
-    <string name="player_1">קבוצה 1 :</string>
-    <string name="player_2">קבוצה 2 :</string>
+    <string name="player_1">קבוצה 1:</string>
+    <string name="player_2">קבוצה 2:</string>
     <string name="start_timer">60</string>
     <string name="start_score">0</string>
 

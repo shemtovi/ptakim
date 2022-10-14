@@ -12,6 +12,7 @@ class Game : AppCompatActivity() {
     private lateinit var team2: Team
     private lateinit var player1Score: TextView
     private lateinit var player2Score: TextView
+    private lateinit var word: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +28,7 @@ class Game : AppCompatActivity() {
 
         player1Score = findViewById(R.id.player1_ScoreBoard)
         player2Score = findViewById(R.id.player2_ScoreBoard)
-        val word = findViewById<TextView>(R.id.word)
+        word = findViewById<TextView>(R.id.word)
 
         game.startRound()
         word.text = game.drawPetek()
@@ -42,7 +43,7 @@ class Game : AppCompatActivity() {
             if (!game.noMoreCards) {
                 word.text = game.drawPetek()
             } else {
-
+                nextRound()
             }
         }
 
@@ -55,6 +56,11 @@ class Game : AppCompatActivity() {
             }
             word.text = game.drawPetek()
         }
+    }
+
+    private fun nextRound() {
+        game.startRound()
+        word.text = game.drawPetek()
     }
 
     fun startTimer() {
