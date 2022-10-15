@@ -2,20 +2,21 @@
     <!-- Base application theme. -->
     <style name="Theme.Ptakim2" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="android:windowBackground">@color/dark_theme_background</item>
-        <item name="android:colorBackgroundCacheHint">@color/dark_theme_background</item>
+        <item name="android:windowBackground">@color/background</item>
+        <item name="android:colorBackgroundCacheHint">@color/background</item>
         <item name="textAppearanceButton">@style/TextAppearance.AppCompat.Button</item>
-        <item name="android:textColor">@color/text_color_dark_theme</item>
-        <item name="colorPrimary">@color/primary_dark_theme</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/secondary_dark_theme</item>
+        <item name="colorSecondary">@color/secondary</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/status_bar</item>
         <!-- Customize your theme here. -->
+        <item name="colorOnSurface">@color/colorOnSurface</item>
     </style>
     <style name="YourApplicationTheme" parent="android:style/Theme.NoTitleBar">
         <item name="android:buttonStyle">@style/button</item>

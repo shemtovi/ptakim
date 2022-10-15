@@ -10,8 +10,8 @@
         <item name="android:clickable">true</item>
     </style>
     <style name="PlusMinusButton" parent="Widget.MaterialComponents.Button">
-        <item name="android:background">?android:attr/colorSecondary</item>
-        <item name="android:textColor">?attr/colorPrimaryVariant</item>
+        <item name="android:background">@color/plusMinusButton_background</item>
+        <item name="android:textColor">@color/plusMinusButton_text</item>
     </style>
     <style name="PrimaryTextButton" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:textStyle">bold</item>
