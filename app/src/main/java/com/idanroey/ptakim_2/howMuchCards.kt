@@ -16,7 +16,7 @@ class howMuchCards : AppCompatActivity() {
     }
 
     operator fun minus(view: View?) {
-        if (numOfWords > 20) {
+        if (numOfWords > 5) {
             numOfWords -= 5
             textView!!.text = numOfWords.toString()
         }

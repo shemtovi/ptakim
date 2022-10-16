@@ -1,7 +1,8 @@
 package com.idanroey.ptakim_2
 
-class Ptakim(filteredCategories: IntArray, private val numberOfWords: Int) {
+class Ptakim(filteredCategories: IntArray, private val numberOfWords: Int, private val team1: Team, private val team2: Team) {
 
+    var currentTeam: Team
     val wordsArray: Set<String>
     val noMoreCards: Boolean
         get() = numberOfWords - guessedRight.size == 0
@@ -49,6 +50,8 @@ class Ptakim(filteredCategories: IntArray, private val numberOfWords: Int) {
         }
         wordsArray.shuffle()
         this.wordsArray = wordsArray.toSet()
+
+        currentTeam = if ((1..2).random() == 1) team1 else team2
     }
 
     fun startRound() {
@@ -61,17 +64,18 @@ class Ptakim(filteredCategories: IntArray, private val numberOfWords: Int) {
         return roundWordList[pointer]
     }
 
-    fun wrongGuess(team: Team) {
+    fun wrongGuess() {
         pointer = ++pointer % roundWordList.size
-        team.wrongGuess()
+        currentTeam.wrongGuess()
     }
 
     fun teamSwitch() {
+        currentTeam = if (currentTeam === team1) team2 else team1
         roundWordList.shuffle()
         pointer = 0
     }
 
-    fun rightGuess(team: Team) {
+    fun rightGuess() {
         guessedRight.add(roundWordList[pointer])
         roundWordList.removeAt(pointer)
         try {
@@ -79,25 +83,26 @@ class Ptakim(filteredCategories: IntArray, private val numberOfWords: Int) {
         } catch (e: ArithmeticException) {
             pointer = 0
         }
-        team.rightGuess()
+        currentTeam.rightGuess()
     }
 }
 
 fun main() {
-    val c = Ptakim(
-        arrayOf(R.id.places, R.id.objects, R.id.scientists).toIntArray(),
-        6
-    )
+
     val t1 = Team(1)
     val t2 = Team(2)
+    val c = Ptakim(
+        arrayOf(R.id.places, R.id.objects, R.id.scientists).toIntArray(),
+        6, t1, t2
+    )
     println(c.wordsArray.joinToString(", "))
     var curTeam = t1
     c.startRound()
     while (!c.noMoreCards) {
         println(c.drawPetek())
         when (readln().toInt()) {
-            0 -> c.wrongGuess(curTeam)
-            1 -> c.rightGuess(curTeam)
+            0 -> c.wrongGuess()
+            1 -> c.rightGuess()
             2 -> {
                 c.teamSwitch()
                 curTeam = if (curTeam === t1) t2 else t1
