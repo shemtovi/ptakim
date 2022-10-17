@@ -15,18 +15,17 @@ class Game : AppCompatActivity() {
     private lateinit var player1Score: TextView
     private lateinit var player2Score: TextView
     private lateinit var word: TextView
+    private  lateinit var leftNumOfWordsTextView: TextView
+
+
+    //timer var
+    private   var  START_TIME_IN_MILLIS: Long =10000
+    private var mTimerRunning = false
+    private var mTimeLeftInMillis: Long = START_TIME_IN_MILLIS
     private lateinit var timerView: TextView
+    private lateinit var timer: CountDownTimer
 
-    private val timer = object : CountDownTimer(10000, 1000) {
-            override fun onTick(timeLeftInMillis: Long) {
-                timerView.text = (timeLeftInMillis / 1000).toString()
-            }
 
-            override fun onFinish() {
-                game.teamSwitch()
-                startTimer()
-            }
-        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +35,8 @@ class Game : AppCompatActivity() {
         val selectedCategories = this.intent.getIntArrayExtra("filteredCategories")!!
 
         timerView = findViewById(R.id.timer)
+        leftNumOfWordsTextView = findViewById(R.id.leftWordsTextViewInt)
+        leftNumOfWordsTextView.text = numberOfWords.toString()
 
         team1 = Team(1)
         team2 = Team(2)
@@ -51,44 +52,84 @@ class Game : AppCompatActivity() {
         startTimer()
 
         findViewById<ImageButton>(R.id.right_button).setOnClickListener {
-            game.rightGuess()
-            if (game.currentTeam === team1) {
-                player1Score.text = team1.getScore().toString()
-            } else {
-                player2Score.text = team2.getScore().toString()
-            }
-            if (!game.noMoreCards) {
-                word.text = game.drawPetek()
-            } else {
-                nextRound()
+            if(mTimerRunning){
+                game.rightGuess()
+                if (game.currentTeam === team1) {
+                    player1Score.text = team1.getScore().toString()
+                } else {
+                    player2Score.text = team2.getScore().toString()
+                }
+                if (!game.noMoreCards) {
+                    word.text = game.drawPetek()
+                } else {
+                    nextRound()
+                }
+                leftNumOfWordsTextView.text = game.leftWords()
             }
         }
 
         findViewById<ImageButton>(R.id.wrong_button).setOnClickListener {
-            game.wrongGuess()
-            if (game.currentTeam === team1) {
-                player1Score.text = team1.getScore().toString()
-            } else {
-                player2Score.text = team2.getScore().toString()
+            if(mTimerRunning){
+                game.wrongGuess()
+                if (game.currentTeam === team1) {
+                    player1Score.text = team1.getScore().toString()
+                } else {
+                    player2Score.text = team2.getScore().toString()
+                }
+                word.text = game.drawPetek()
             }
-            word.text = game.drawPetek()
+        }
+
+        findViewById<ImageButton>(R.id.start_stop_button).setOnClickListener{
+            if(mTimerRunning) pauseTimer()
+            else startTimer()
         }
     }
 
     private fun nextRound() {
         if (roundNumber < 3) {
             roundNumber++
-            timer.cancel()
+            pauseTimer()
+            resetTimer()
             game.teamSwitch()
             game.startRound()
             word.text = game.drawPetek()
-            timer.start()
+            //popup window
         } else {
             this.finish()
         }
     }
 
     fun startTimer() {
-     timer.start()
+        timer = object : CountDownTimer(mTimeLeftInMillis, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                mTimeLeftInMillis = millisUntilFinished
+                timerView.text = (mTimeLeftInMillis / 1000).toString()
+
+            }
+
+            override fun onFinish() {
+                resetTimer()
+                game.teamSwitch()
+                //popup window
+            }
+        }.start()
+        mTimerRunning = true
+
     }
+
+    fun resetTimer(){
+        mTimeLeftInMillis = START_TIME_IN_MILLIS
+        timerView.text = (mTimeLeftInMillis / 1000).toString()
+        mTimerRunning = false
+
+    }
+
+    fun  pauseTimer(){
+        timer.cancel()
+        mTimerRunning = false
+        //popup window
+    }
+
+
 }

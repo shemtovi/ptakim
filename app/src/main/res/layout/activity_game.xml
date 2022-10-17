@@ -72,7 +72,7 @@
         app:layout_constraintTop_toBottomOf="@+id/player_2" />
 
     <ImageButton
-        android:id="@+id/stop_button"
+        android:id="@+id/start_stop_button"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginTop="16dp"
@@ -135,5 +135,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintVertical_bias="0.55"
         />
+
+    <TextView
+        android:id="@+id/leftWordsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/leftWordsTextView"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.639"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:layout_constraintVertical_bias="0.511" />
+
+    <TextView
+        android:id="@+id/leftWordsTextViewInt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="@string/leftWordsTextViewInt"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/leftWordsTextView"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:layout_constraintVertical_bias="0.511" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
