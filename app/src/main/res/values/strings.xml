@@ -31,4 +31,7 @@
     <string name="num_of_cards_title">עם כמה פתקים תרצו לשחק?</string>
     <string name="start_playing">יאללה בא לי לשחק</string>
 
+    <string name="leftWordsTextView">מס\' מילים שנשארו: </string>
+    <string name="leftWordsTextViewInt">0</string>
+
 </resources>
