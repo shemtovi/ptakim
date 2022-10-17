@@ -3,8 +3,10 @@ package com.idanroey.ptakim_2
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 
 class Game : AppCompatActivity() {
 
@@ -24,6 +26,9 @@ class Game : AppCompatActivity() {
     private var mTimeLeftInMillis: Long = START_TIME_IN_MILLIS
     private lateinit var timerView: TextView
     private lateinit var timer: CountDownTimer
+
+    private lateinit var bilder: AlertDialog.Builder
+    private  lateinit var dialog: AlertDialog
 
 
 
@@ -81,6 +86,7 @@ class Game : AppCompatActivity() {
         }
 
         findViewById<ImageButton>(R.id.start_stop_button).setOnClickListener{
+            CreateNewAlertDialog()
             if(mTimerRunning) pauseTimer()
             else startTimer()
         }
@@ -131,5 +137,13 @@ class Game : AppCompatActivity() {
         //popup window
     }
 
+    fun CreateNewAlertDialog(){
+        bilder =AlertDialog.Builder(this)
+        val view = View.inflate(this@Game,R.layout.alert_dialog_stages,null)
+        bilder.setView(view)
+        dialog = bilder.create()
+        dialog.show()
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+    }
 
 }
