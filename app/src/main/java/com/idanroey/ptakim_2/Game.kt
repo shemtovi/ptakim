@@ -1,13 +1,21 @@
 package com.idanroey.ptakim_2
 
+import android.content.Context
+import android.graphics.Color
+import android.graphics.Typeface
+import android.os.*
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
+import android.view.HapticFeedbackConstants
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.appcompat.app.AlertDialog
 
 class Game : AppCompatActivity() {
@@ -28,18 +36,30 @@ class Game : AppCompatActivity() {
     private var mTimeLeftInMillis: Long = START_TIME_IN_MILLIS
     private lateinit var timerView: TextView
     private lateinit var timer: CountDownTimer
+    private lateinit var team1View: TextView
+    private lateinit var team2View: TextView
+    private lateinit var vibrator: Vibrator
 
     private lateinit var bilder: AlertDialog.Builder
     private  lateinit var dialog: AlertDialog
 
 
     @SuppressLint("MissingInflatedId")
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
 
         val numberOfWords = this.intent.getIntExtra("numberOfWords", 20)
         val selectedCategories = this.intent.getIntArrayExtra("filteredCategories")!!
+
+        vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val vibratorManager= getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
+            vibratorManager.defaultVibrator
+
+        } else {
+            getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        }
 
         timerView = findViewById(R.id.timer)
         leftNumOfWordsTextView = findViewById(R.id.leftWordsTextViewInt)
@@ -52,8 +72,11 @@ class Game : AppCompatActivity() {
         player1Score = findViewById(R.id.player1_ScoreBoard)
         player2Score = findViewById(R.id.player2_ScoreBoard)
         word = findViewById(R.id.word)
+        team1View = findViewById(R.id.player_1)
+        team2View = findViewById(R.id.player_2)
 
         game.startRound()
+        updateTeamsViews()
         word.text = game.drawPetek()
 
         createRoundAlertDialog(roundNumber)
@@ -61,6 +84,7 @@ class Game : AppCompatActivity() {
 
         findViewById<ImageButton>(R.id.right_button).setOnClickListener {
             if(mTimerRunning){
+                it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
                 game.rightGuess()
                 if (game.currentTeam === team1) {
                     player1Score.text = team1.getScore().toString()
@@ -78,7 +102,13 @@ class Game : AppCompatActivity() {
 
         findViewById<ImageButton>(R.id.wrong_button).setOnClickListener {
             if(mTimerRunning){
-                game.wrongGuess()
+            val handler = Handler(Looper.getMainLooper())
+            it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            handler.postDelayed(
+                {it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)},
+                100
+            )
+            game.wrongGuess()
                 if (game.currentTeam === team1) {
                     player1Score.text = team1.getScore().toString()
                 } else {
@@ -97,11 +127,14 @@ class Game : AppCompatActivity() {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     private fun nextRound() {
         if (roundNumber < 3) {
             roundNumber++
+            vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_HEAVY_CLICK))
             resetTimer()
             game.teamSwitch()
+            updateTeamsViews()
             game.startRound()
             word.text = game.drawPetek()
 
@@ -110,6 +143,15 @@ class Game : AppCompatActivity() {
         createRoundAlertDialog(roundNumber)
     }
     //timer functions
+
+    fun updateTeamsViews() {
+        val textColor: String = "#" + Integer.toHexString(ResourcesCompat.getColor(resources, R.color.text_color, null))
+        team1View.typeface = if (game.currentTeam === team1) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
+        team1View.setTextColor(Color.parseColor(if (game.currentTeam === team1) "#5adbb5" else textColor))
+        team2View.typeface = if (game.currentTeam === team2) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
+        team2View.setTextColor(Color.parseColor(if (game.currentTeam === team2) "#5adbb5" else textColor))
+    }
+
     fun startTimer() {
         timer = object : CountDownTimer(mTimeLeftInMillis, 100) {
             override fun onTick(millisUntilFinished: Long) {
