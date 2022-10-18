@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -31,7 +32,6 @@ class Game : AppCompatActivity() {
     private  lateinit var dialog: AlertDialog
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
@@ -54,7 +54,8 @@ class Game : AppCompatActivity() {
         game.startRound()
         word.text = game.drawPetek()
 
-        startTimer()
+        createNewAlertDialog()
+
 
         findViewById<ImageButton>(R.id.right_button).setOnClickListener {
             if(mTimerRunning){
@@ -86,38 +87,42 @@ class Game : AppCompatActivity() {
         }
 
         findViewById<ImageButton>(R.id.start_stop_button).setOnClickListener{
-            CreateNewAlertDialog()
             if(mTimerRunning) pauseTimer()
-            else startTimer()
+            createNewAlertDialog()
         }
+
+
     }
+
 
     private fun nextRound() {
         if (roundNumber < 3) {
             roundNumber++
-            pauseTimer()
             resetTimer()
             game.teamSwitch()
             game.startRound()
             word.text = game.drawPetek()
             //popup window
+            createNewAlertDialog()
         } else {
             this.finish()
         }
     }
 
     fun startTimer() {
-        timer = object : CountDownTimer(mTimeLeftInMillis, 1000) {
+        timer = object : CountDownTimer(mTimeLeftInMillis, 100) {
             override fun onTick(millisUntilFinished: Long) {
-                mTimeLeftInMillis = millisUntilFinished
-                timerView.text = (mTimeLeftInMillis / 1000).toString()
-
+                if((millisUntilFinished / 1000) != mTimeLeftInMillis ){
+                    mTimeLeftInMillis = millisUntilFinished
+                    timerView.text = (mTimeLeftInMillis / 1000).toString()
+                }
             }
 
             override fun onFinish() {
                 resetTimer()
                 game.teamSwitch()
                 //popup window
+                createNewAlertDialog()
             }
         }.start()
         mTimerRunning = true
@@ -125,25 +130,32 @@ class Game : AppCompatActivity() {
     }
 
     fun resetTimer(){
+        pauseTimer()
         mTimeLeftInMillis = START_TIME_IN_MILLIS
         timerView.text = (mTimeLeftInMillis / 1000).toString()
-        mTimerRunning = false
 
     }
 
     fun  pauseTimer(){
         timer.cancel()
         mTimerRunning = false
-        //popup window
+
     }
 
-    fun CreateNewAlertDialog(){
+    fun createNewAlertDialog(){
         bilder =AlertDialog.Builder(this)
         val view = View.inflate(this@Game,R.layout.alert_dialog_stages,null)
         bilder.setView(view)
         dialog = bilder.create()
         dialog.show()
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.setCancelable(false)
+    }
+
+    fun dialogButton(view: View){
+        dialog.dismiss()
+        startTimer()
     }
 
 }
