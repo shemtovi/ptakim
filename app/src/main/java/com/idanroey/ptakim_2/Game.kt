@@ -1,33 +1,35 @@
 package com.idanroey.ptakim_2
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.*
-import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.view.HapticFeedbackConstants
-import android.os.Bundle
-import android.os.CountDownTimer
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 
 class Game : AppCompatActivity() {
 
+    // Game elements
     private var roundNumber = 1
     private lateinit var game: Ptakim
     private lateinit var team1: Team
     private lateinit var team2: Team
+
+    // Text views
     private lateinit var player1Score: TextView
     private lateinit var player2Score: TextView
+    private lateinit var team1View: TextView
+    private lateinit var team2View: TextView
     private lateinit var word: TextView
-    private  lateinit var leftNumOfWordsTextView: TextView
+    private lateinit var leftNumOfWordsTextView: TextView
 
 
     //timer var
@@ -36,10 +38,9 @@ class Game : AppCompatActivity() {
     private var mTimeLeftInMillis: Long = START_TIME_IN_MILLIS
     private lateinit var timerView: TextView
     private lateinit var timer: CountDownTimer
-    private lateinit var team1View: TextView
-    private lateinit var team2View: TextView
-    private lateinit var vibrator: Vibrator
 
+    // Resources
+    private lateinit var vibrator: Vibrator
     private lateinit var bilder: AlertDialog.Builder
     private  lateinit var dialog: AlertDialog
 
@@ -81,7 +82,6 @@ class Game : AppCompatActivity() {
 
         createRoundAlertDialog(roundNumber)
 
-
         findViewById<ImageButton>(R.id.right_button).setOnClickListener {
             if(mTimerRunning){
                 it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
@@ -122,8 +122,6 @@ class Game : AppCompatActivity() {
             if(mTimerRunning) pauseTimer()
             createStopAlertDialog()
         }
-
-
     }
 
 
@@ -137,12 +135,10 @@ class Game : AppCompatActivity() {
             updateTeamsViews()
             game.startRound()
             word.text = game.drawPetek()
-
         }
         //popup window
         createRoundAlertDialog(roundNumber)
     }
-    //timer functions
 
     fun updateTeamsViews() {
         val textColor: String = "#" + Integer.toHexString(ResourcesCompat.getColor(resources, R.color.text_color, null))
@@ -152,6 +148,7 @@ class Game : AppCompatActivity() {
         team2View.setTextColor(Color.parseColor(if (game.currentTeam === team2) "#5adbb5" else textColor))
     }
 
+    //timer functions
     fun startTimer() {
         timer = object : CountDownTimer(mTimeLeftInMillis, 100) {
             override fun onTick(millisUntilFinished: Long) {
@@ -164,25 +161,23 @@ class Game : AppCompatActivity() {
             override fun onFinish() {
                 resetTimer()
                 game.teamSwitch()
+                updateTeamsViews()
                 //popup window
                 createStopAlertDialog()
             }
         }.start()
         mTimerRunning = true
-
     }
 
     fun resetTimer(){
         pauseTimer()
         mTimeLeftInMillis = START_TIME_IN_MILLIS
         timerView.text = (mTimeLeftInMillis / 1000).toString()
-
     }
 
-    fun  pauseTimer(){
+    fun pauseTimer(){
         timer.cancel()
         mTimerRunning = false
-
     }
 
     //dialog functions
@@ -207,9 +202,9 @@ class Game : AppCompatActivity() {
 
     fun createRoundAlertDialog(round:Int){
         createNewAlertDialog()
-        var upperText: TextView? = dialog.findViewById<TextView>(R.id.upperText)
-        var lowerText: TextView? = dialog.findViewById<TextView>(R.id.lowerText)
-        var  dialogButton: Button? = dialog.findViewById(R.id.alertDialogButton)
+        val upperText = dialog.findViewById<TextView>(R.id.upperText)
+        var lowerText = dialog.findViewById<TextView>(R.id.lowerText)
+        val dialogButton: Button? = dialog.findViewById(R.id.alertDialogButton)
         if(round == 1){
          //round 1 text
             if (upperText != null) {
