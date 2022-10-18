@@ -3,8 +3,10 @@ package com.idanroey.ptakim_2
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.HapticFeedbackConstants
 import android.view.View
 import android.widget.TextView
+
 
 class howMuchCards : AppCompatActivity() {
     private var numOfWords = 20
@@ -16,6 +18,7 @@ class howMuchCards : AppCompatActivity() {
     }
 
     operator fun minus(view: View?) {
+        view!!.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         if (numOfWords > 5) {
             numOfWords -= 5
             textView!!.text = numOfWords.toString()
@@ -23,6 +26,7 @@ class howMuchCards : AppCompatActivity() {
     }
 
     fun plus (view: View?) {
+        view!!.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         if (numOfWords < 50) {
             numOfWords += 5
             textView!!.text = numOfWords.toString()
@@ -30,6 +34,7 @@ class howMuchCards : AppCompatActivity() {
     }
 
     fun start (view: View?) {
+        view!!.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         val intent = Intent(this, CategoriesMenu::class.java)
         intent.putExtra("numberOfWords", numOfWords)
         startActivity(intent)

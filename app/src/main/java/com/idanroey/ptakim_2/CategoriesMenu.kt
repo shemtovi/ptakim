@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.HapticFeedbackConstants
 import android.view.View
 import android.widget.Button
 
@@ -56,6 +57,7 @@ class CategoriesMenu : AppCompatActivity(), View.OnClickListener  {
     }
 
     fun start(view: View) {
+        view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         if (categories.values.count { it } > 0) {
             val numberOfWords = this.intent.getIntExtra("numberOfWords", 20)
             val filteredCategories = categories.filter { (_, bool) -> bool}.keys.toIntArray()
@@ -66,8 +68,9 @@ class CategoriesMenu : AppCompatActivity(), View.OnClickListener  {
         }
     }
 
-    override fun onClick(view: View?) {
-        if (view!!.id in categories.keys) updateCategories(view)
+    override fun onClick(view: View) {
+        view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+        if (view.id in categories.keys) updateCategories(view)
         findViewById<Button>(R.id.start).isEnabled = categories.values.count { it } > 0
     }
 }
