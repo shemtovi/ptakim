@@ -72,7 +72,7 @@
         app:layout_constraintTop_toBottomOf="@+id/player_2" />
 
     <ImageButton
-        android:id="@+id/start_stop_button"
+        android:id="@+id/stop_button"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginTop="16dp"
