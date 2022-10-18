@@ -1,5 +1,6 @@
 package com.idanroey.ptakim_2
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -32,6 +33,7 @@ class Game : AppCompatActivity() {
     private  lateinit var dialog: AlertDialog
 
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
@@ -54,7 +56,7 @@ class Game : AppCompatActivity() {
         game.startRound()
         word.text = game.drawPetek()
 
-        createNewAlertDialog()
+        createRoundAlertDialog(roundNumber)
 
 
         findViewById<ImageButton>(R.id.right_button).setOnClickListener {
@@ -86,9 +88,9 @@ class Game : AppCompatActivity() {
             }
         }
 
-        findViewById<ImageButton>(R.id.start_stop_button).setOnClickListener{
+        findViewById<ImageButton>(R.id.stop_button).setOnClickListener{
             if(mTimerRunning) pauseTimer()
-            createNewAlertDialog()
+            createStopAlertDialog()
         }
 
 
@@ -102,13 +104,12 @@ class Game : AppCompatActivity() {
             game.teamSwitch()
             game.startRound()
             word.text = game.drawPetek()
-            //popup window
-            createNewAlertDialog()
-        } else {
-            this.finish()
-        }
-    }
 
+        }
+        //popup window
+        createRoundAlertDialog(roundNumber)
+    }
+    //timer functions
     fun startTimer() {
         timer = object : CountDownTimer(mTimeLeftInMillis, 100) {
             override fun onTick(millisUntilFinished: Long) {
@@ -122,7 +123,7 @@ class Game : AppCompatActivity() {
                 resetTimer()
                 game.teamSwitch()
                 //popup window
-                createNewAlertDialog()
+                createStopAlertDialog()
             }
         }.start()
         mTimerRunning = true
@@ -142,6 +143,7 @@ class Game : AppCompatActivity() {
 
     }
 
+    //dialog functions
     fun createNewAlertDialog(){
         bilder =AlertDialog.Builder(this)
         val view = View.inflate(this@Game,R.layout.alert_dialog_stages,null)
@@ -153,9 +155,57 @@ class Game : AppCompatActivity() {
         dialog.setCancelable(false)
     }
 
+    @SuppressLint("SetTextI18n")
+    fun createStopAlertDialog(){
+        createNewAlertDialog()
+        dialog.findViewById<TextView>(R.id.upperText)?.text = "סיבוב מס: $roundNumber"
+        dialog.findViewById<TextView>(R.id.lowerText)?.text = "תור של קבוצה מס: " + game.currentTeam.teamNumber.toString()
+
+    }
+
+    fun createRoundAlertDialog(round:Int){
+        createNewAlertDialog()
+        var upperText: TextView? = dialog.findViewById<TextView>(R.id.upperText)
+        var lowerText: TextView? = dialog.findViewById<TextView>(R.id.lowerText)
+        var  dialogButton: Button? = dialog.findViewById(R.id.alertDialogButton)
+        if(round == 1){
+         //round 1 text
+            if (upperText != null) {
+                upperText.text = "שלב 1"
+            }
+        }
+        else if(round == 2){
+            //round 2 text
+            if (upperText != null) {
+                upperText.text = "שלב 2"
+            }
+        }
+        else{
+            //round 3 text + changing dialogButton function
+            if (upperText != null) {
+                upperText.text = "שלב 3"
+            }
+            if (dialogButton != null) {
+                dialogButton.text = "משחק חדש"
+                dialogButton.setOnClickListener{
+                    //startNewGame()
+                    this.finish()
+                }
+            }
+
+        }
+
+
+    }
+
+
     fun dialogButton(view: View){
         dialog.dismiss()
         startTimer()
+    }
+
+    fun startNewGame(){
+        TODO()
     }
 
 }
