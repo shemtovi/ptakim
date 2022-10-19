@@ -7,6 +7,7 @@ import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.*
+import android.view.HapticFeedbackConstants
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
@@ -231,8 +232,8 @@ class Game : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     fun createStopAlertDialog(){
         createNewAlertDialog()
-        dialog.findViewById<TextView>(R.id.upperText)?.text = "סיבוב מס: $roundNumber"
-        dialog.findViewById<TextView>(R.id.lowerText)?.text = "תור של קבוצה מס: " + game.currentTeam.teamNumber.toString()
+        dialog.findViewById<TextView>(R.id.upperText)?.text = String.format( getString(R.string.round_number),roundNumber)
+        dialog.findViewById<TextView>(R.id.lowerText)?.text = String.format( getString(R.string.playing_team),game.currentTeam.teamNumber)
 
     }
 
@@ -244,31 +245,28 @@ class Game : AppCompatActivity() {
         val dialogButton: Button? = dialog.findViewById(R.id.alertDialogButton)
         if(round == 1){
          //round 1 text
-            if (upperText != null ) {
-                upperText.text = "שלב 1"
-            }
+            dialog.findViewById<TextView>(R.id.upperText)?.text =   "סיבוב ראשון"
+            dialog.findViewById<TextView>(R.id.lowerText)?.text = String.format( getString(R.string.round1text),game.currentTeam.teamNumber)
+
         } else if(round == 2) {
             //round 2 text
-            if (upperText != null) {
-                upperText.text = "שלב 2"
-            }
+            dialog.findViewById<TextView>(R.id.upperText)?.text =   "סיבוב שני"
+            dialog.findViewById<TextView>(R.id.lowerText)?.text = String.format( getString(R.string.round2text),game.currentTeam.teamNumber)
         } else if (round == 3){
             //round 3 text
-            if (upperText != null) {
-                upperText.text ="שלב 3"
-            }
+            dialog.findViewById<TextView>(R.id.upperText)?.text =   "סיבוב אחרון"
+            dialog.findViewById<TextView>(R.id.lowerText)?.text = String.format( getString(R.string.round3text),game.currentTeam.teamNumber)
 
         } else {
             //game ends + changing dialogButton function
-            if (upperText != null) {
-                upperText.text = getString(R.string.end_game)
-            }
-            if (dialogButton != null) {
-                dialogButton.text = "משחק חדש"
-                dialogButton.setOnClickListener{
-                    startNewGame()
-
-                }
+            dialog.findViewById<TextView>(R.id.upperText)?.text =   "המשחק נגמר"
+            dialog.findViewById<TextView>(R.id.lowerText)?.text = String.format( getString(R.string.endGameText),if(team1.getScore()>team2.getScore())1 else 2)
+            dialog.findViewById<Button>(R.id.alertDialogButton)?.text = "התחל משחק חדש"
+            dialog.findViewById<Button>(R.id.alertDialogButton)?.setOnClickListener {
+                val intent = Intent(this, CategoriesMenu::class.java)
+                intent.putExtra("numberOfWords", numberOfWords)
+                intent.putExtra("timePerRound", START_TIME_IN_MILLIS)
+                startActivity(intent)
             }
         }
     }
@@ -278,8 +276,12 @@ class Game : AppCompatActivity() {
         startTimer()
     }
 
-    fun startNewGame(){
-        TODO()
+    fun startNewGame(view:View){
+        view!!.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+        val intent = Intent(this, CategoriesMenu::class.java)
+        intent.putExtra("numberOfWords", numberOfWords)
+        intent.putExtra("timePerRound", START_TIME_IN_MILLIS)
+        startActivity(intent)
     }
 
 }

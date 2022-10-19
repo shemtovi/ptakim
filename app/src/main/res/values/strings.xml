@@ -22,10 +22,12 @@
 
 
     <string name="dagim">דגים</string>
-    <string name="start_text">כדי להיות מאושר עשה את דברים העושים אותך מאושר ש.שם-טוב(שלב ראשון)</string>
-    <string name="second_stage_text">שלב שני מתחיל עכשיו מילה אחת בלבד לתאור. הקבוצה המתחילה היא: </string>
-    <string name="third_stage_text">שלב שלישי מתחיל עכשיו פנטומימה בלבד לתאור. הקבוצה המתחילה היא:</string>
-    <string name="end_game">הקבוצה המנצחת היא:</string>
+    <string name="round_number">סיבוב מס:%1d</string>
+    <string name="playing_team">תור של קבוצה מס: %1d</string>
+    <string name="round1text">מטרה:%n לגרום לקבוצה לזהות את המילה המופיעה על הלוח%n מותר:%n לתאר את מה שכתוב בכמה מילים שרוצים%n אסור:%n לומר מילים שכתובות על הפתק או מתחרזות בו  %n %n  התור של קבוצה %1d</string>
+    <string name="round2text">מטרה:%n לגרום לקבוצה לזהות את המילה המופיעה על הלוח%n מותר:%n לתאר את מה שכתוב במילה אחת בלבד%n אסור:%n לומר מילים שכתובות על הפתק או מתחרזות בו  %n %n  התור של קבוצה %1d </string>
+    <string name="round3text">מטרה:%n לגרום לקבוצה לזהות את המילה המופיעה על הלוח%n מותר:%n לתאר את מה שכתוב בעזרת פנטומימה בלבד%n אסור:%n לדבר או לכתוב את המילה המופיעה  %n %n  התור של קבוצה %1d</string>
+    <string name="endGameText">הקבוצה המנצחת היא %n  קבוצה מספר: %1d</string>
     <string name="categories">בחירת קטגוריות</string>
     <string name="game_title">פתקים</string>
     <string name="num_of_cards_title">מספר פתקים</string>
