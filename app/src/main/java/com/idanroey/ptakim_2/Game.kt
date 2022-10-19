@@ -33,7 +33,7 @@ class Game : AppCompatActivity() {
 
 
     // Timer var
-    private var START_TIME_IN_MILLIS = 10000L
+    private var START_TIME_IN_MILLIS = 60000L
     private var mTimerRunning = false
     private var mTimeLeftInMillis: Long = START_TIME_IN_MILLIS
     private lateinit var timerView: TextView
@@ -42,7 +42,7 @@ class Game : AppCompatActivity() {
     // Resources
     private lateinit var vibrator: Vibrator
     private lateinit var bilder: AlertDialog.Builder
-    private  lateinit var dialog: AlertDialog
+    private lateinit var dialog: AlertDialog
 
     // Vibration effects
     private val repeat = -1
@@ -82,6 +82,11 @@ class Game : AppCompatActivity() {
         val numberOfWords = this.intent.getIntExtra("numberOfWords", 20)
         val selectedCategories = this.intent.getIntArrayExtra("filteredCategories")!!
 
+        START_TIME_IN_MILLIS = this.intent.getLongExtra("timePerRound", 60000)
+        mTimeLeftInMillis = START_TIME_IN_MILLIS
+        timerView = findViewById(R.id.timer)
+        timerView.text = (START_TIME_IN_MILLIS / 1000).toString()
+
         vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             val vibratorManager= getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
             vibratorManager.defaultVibrator
@@ -89,7 +94,6 @@ class Game : AppCompatActivity() {
             getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         }
 
-        timerView = findViewById(R.id.timer)
         leftNumOfWordsTextView = findViewById(R.id.leftWordsTextViewInt)
         leftNumOfWordsTextView.text = numberOfWords.toString()
 

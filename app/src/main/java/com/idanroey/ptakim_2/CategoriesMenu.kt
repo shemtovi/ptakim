@@ -60,10 +60,12 @@ class CategoriesMenu : AppCompatActivity(), View.OnClickListener  {
         view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
         if (categories.values.count { it } > 0) {
             val numberOfWords = this.intent.getIntExtra("numberOfWords", 20)
+            val timePerRound = this.intent.getLongExtra("timePerRound", 60000)
             val filteredCategories = categories.filter { (_, bool) -> bool}.keys.toIntArray()
             val intent = Intent(this, Game::class.java)
             intent.putExtra("filteredCategories", filteredCategories)
             intent.putExtra("numberOfWords", numberOfWords)
+            intent.putExtra("timePerRound", timePerRound)
             startActivity(intent)
         }
     }

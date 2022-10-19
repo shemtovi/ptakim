@@ -7,13 +7,26 @@
     tools:context=".howMuchCards">
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/timer_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/time"
+        app:layout_constraintVertical_bias="0.1"
+        android:text="@string/timer_help"
+        style="@style/Title"
+        />
+
+    <TextView
+        android:id="@+id/words_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/time"
+        app:layout_constraintBottom_toTopOf="@id/numOfWords"
         app:layout_constraintVertical_bias="0.1"
         android:text="@string/num_of_cards_title"
         style="@style/Title"
@@ -25,38 +38,81 @@
         android:layout_height="wrap_content"
         android:text="@string/numOfWords"
         android:textSize="50sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/choose_categories"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/words_text" />
 
-    <Button
-        android:id="@+id/plus"
+    <TextView
+        android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="plus"
-        android:text="+"
+        android:text="@string/start_timer"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toTopOf="@id/words_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/timer_text"
+        />
+
+    <Button
+        android:id="@+id/plus_words"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="plusWords"
+        android:text="@string/plus"
         app:backgroundTint="@null"
         style="@style/PlusMinusButton"
         android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/choose_categories"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/numOfWords"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/words_text"
+        />
 
     <Button
-        android:id="@+id/minus"
+        android:id="@+id/plus_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="minus"
-        android:text="-"
+        android:onClick="plusTime"
+        android:text="@string/plus"
         app:backgroundTint="@null"
         style="@style/PlusMinusButton"
         android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/words_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/numOfWords"
+        app:layout_constraintTop_toBottomOf="@id/timer_text"
+        />
+
+    <Button
+        android:id="@+id/minus_words"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="minusWords"
+        android:text="@string/minus"
+        app:backgroundTint="@null"
+        style="@style/PlusMinusButton"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@id/choose_categories"
         app:layout_constraintEnd_toStartOf="@+id/numOfWords"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/words_text"
+        />
+
+    <Button
+        android:id="@+id/minus_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="minusTime"
+        android:text="@string/minus"
+        app:backgroundTint="@null"
+        style="@style/PlusMinusButton"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@id/words_text"
+        app:layout_constraintEnd_toStartOf="@+id/numOfWords"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/timer_text"
         />
 
     <Button
@@ -67,10 +123,10 @@
         style="@style/PrimaryTextButton"
         android:text="@string/choose_categories_button"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="@id/numOfWords"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0.8"
+        app:layout_constraintVertical_bias="0.85"
         />
 
 
