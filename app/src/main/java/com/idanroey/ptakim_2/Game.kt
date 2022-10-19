@@ -2,6 +2,8 @@ package com.idanroey.ptakim_2
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
+import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.*
@@ -13,6 +15,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
+
 
 class Game : AppCompatActivity() {
 
@@ -43,26 +46,33 @@ class Game : AppCompatActivity() {
     private lateinit var builder: AlertDialog.Builder
     private lateinit var dialog: AlertDialog
 
+    private  var numberOfWords:  Int = 20
+    private lateinit var selectedCategories: IntArray
+
     // Vibration effects
     private val repeat = -1
+    @RequiresApi(Build.VERSION_CODES.O)
     private val timerEndVibrationEffect = VibrationEffect.createWaveform(
         longArrayOf(0, 75, 50, 75, 50, 75),
         intArrayOf(0, 50, 0, 50, 0, 50),
         repeat
     )
+    @RequiresApi(Build.VERSION_CODES.O)
     private val roundEndVibrationEffect = VibrationEffect.createWaveform(
         longArrayOf(0, 150),
         intArrayOf(0, 255),
         repeat
     )
+    @RequiresApi(Build.VERSION_CODES.O)
     private val rightGuessVibrationEffect = VibrationEffect.createWaveform(
         longArrayOf(0, 75),
         intArrayOf(0, 75),
         repeat
     )
+    @RequiresApi(Build.VERSION_CODES.O)
     private val wrongGuessVibrationEffect = VibrationEffect.createWaveform(
-        longArrayOf(0, 75, 75, 75),
-        intArrayOf(0, 100, 0, 100),
+        longArrayOf(0, 50, 50, 50),
+        intArrayOf(0, 75, 0, 75),
         repeat
     )
 
@@ -74,8 +84,8 @@ class Game : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
 
-        val numberOfWords = this.intent.getIntExtra("numberOfWords", 20)
-        val selectedCategories = this.intent.getIntArrayExtra("filteredCategories")!!
+         numberOfWords = this.intent.getIntExtra("numberOfWords", 20)
+         selectedCategories = this.intent.getIntArrayExtra("filteredCategories")!!
 
         START_TIME_IN_MILLIS = this.intent.getLongExtra("timePerRound", 60000)
         mTimeLeftInMillis = START_TIME_IN_MILLIS
@@ -156,7 +166,9 @@ class Game : AppCompatActivity() {
             game.startRound()
             word.text = game.drawPetek()
         }
+        else roundNumber = 4
         //popup window
+        resetTimer()
         createRoundAlertDialog(roundNumber)
     }
 
@@ -180,6 +192,7 @@ class Game : AppCompatActivity() {
             }
 
 
+            @RequiresApi(Build.VERSION_CODES.O)
             override fun onFinish() {
                 resetTimer()
                 game.teamSwitch()
@@ -223,6 +236,7 @@ class Game : AppCompatActivity() {
 
     }
 
+    @SuppressLint("ResourceType")
     private fun createRoundAlertDialog(round:Int){
         createNewAlertDialog()
         val upperText = dialog.findViewById<TextView>(R.id.upperText)
@@ -230,7 +244,7 @@ class Game : AppCompatActivity() {
         val dialogButton: Button? = dialog.findViewById(R.id.alertDialogButton)
         if(round == 1){
          //round 1 text
-            if (upperText != null) {
+            if (upperText != null ) {
                 upperText.text = "שלב 1"
             }
         } else if(round == 2) {
@@ -238,16 +252,22 @@ class Game : AppCompatActivity() {
             if (upperText != null) {
                 upperText.text = "שלב 2"
             }
-        } else {
-            //round 3 text + changing dialogButton function
+        } else if (round == 3){
+            //round 3 text
             if (upperText != null) {
-                upperText.text = "שלב 3"
+                upperText.text ="שלב 3"
+            }
+
+        } else {
+            //game ends + changing dialogButton function
+            if (upperText != null) {
+                upperText.text = getString(R.string.end_game)
             }
             if (dialogButton != null) {
                 dialogButton.text = "משחק חדש"
                 dialogButton.setOnClickListener{
-                    //startNewGame()
-                    this.finish()
+                    startNewGame()
+
                 }
             }
         }

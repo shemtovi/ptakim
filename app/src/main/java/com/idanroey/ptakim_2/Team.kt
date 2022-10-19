@@ -12,4 +12,8 @@ class Team(val teamNumber: Int, val teamName: String? = null) {
     fun getScore(): Int {
         return score
     }
+
+    fun reSetScore(){
+        score = 0
+    }
 }

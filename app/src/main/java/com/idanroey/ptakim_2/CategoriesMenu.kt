@@ -3,7 +3,6 @@ package com.idanroey.ptakim_2
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.HapticFeedbackConstants
 import android.view.View
 import android.widget.Button
@@ -15,7 +14,7 @@ class CategoriesMenu : AppCompatActivity(), View.OnClickListener  {
         R.id.movies to false,
         R.id.companies to false,
         R.id.objects to false,
-        R.id.culture_leaders to false,
+        R.id.cultureLeaders to false,
         R.id.sports to false,
         R.id.nature to false,
         R.id.scientists to false,
@@ -29,7 +28,7 @@ class CategoriesMenu : AppCompatActivity(), View.OnClickListener  {
         val movies = findViewById<Button>(R.id.movies)
         val companies = findViewById<Button>(R.id.companies)
         val objects = findViewById<Button>(R.id.objects)
-        val culture_leaders = findViewById<Button>(R.id.culture_leaders)
+        val cultureLeaders = findViewById<Button>(R.id.cultureLeaders)
         val sports = findViewById<Button>(R.id.sports)
         val nature = findViewById<Button>(R.id.nature)
         val scientists = findViewById<Button>(R.id.scientists)
@@ -38,7 +37,7 @@ class CategoriesMenu : AppCompatActivity(), View.OnClickListener  {
         movies.setOnClickListener(this)
         companies.setOnClickListener(this)
         objects.setOnClickListener(this)
-        culture_leaders.setOnClickListener(this)
+        cultureLeaders.setOnClickListener(this)
         sports.setOnClickListener(this)
         nature.setOnClickListener(this)
         scientists.setOnClickListener(this)
