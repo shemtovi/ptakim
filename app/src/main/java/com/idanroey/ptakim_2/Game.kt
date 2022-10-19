@@ -141,11 +141,12 @@ class Game : AppCompatActivity() {
     }
 
     fun updateTeamsViews() {
-        val textColor: String = "#" + Integer.toHexString(ResourcesCompat.getColor(resources, R.color.text_color, null))
+        val idleTextColor= "#" + Integer.toHexString(ResourcesCompat.getColor(resources, R.color.text_color, null))
+        val currentTextColor = "#" + Integer.toHexString(ResourcesCompat.getColor(resources, R.color.category_button_selected, null))
         team1View.typeface = if (game.currentTeam === team1) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
-        team1View.setTextColor(Color.parseColor(if (game.currentTeam === team1) "#5adbb5" else textColor))
+        team1View.setTextColor(Color.parseColor(if (game.currentTeam === team1) currentTextColor else idleTextColor))
         team2View.typeface = if (game.currentTeam === team2) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
-        team2View.setTextColor(Color.parseColor(if (game.currentTeam === team2) "#5adbb5" else textColor))
+        team2View.setTextColor(Color.parseColor(if (game.currentTeam === team2) currentTextColor else idleTextColor))
     }
 
     //timer functions
