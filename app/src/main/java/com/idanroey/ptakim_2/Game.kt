@@ -33,7 +33,7 @@ class Game : AppCompatActivity() {
 
 
     //timer var
-    private   var  START_TIME_IN_MILLIS: Long =10000
+    private var START_TIME_IN_MILLIS = 10000L
     private var mTimerRunning = false
     private var mTimeLeftInMillis: Long = START_TIME_IN_MILLIS
     private lateinit var timerView: TextView
