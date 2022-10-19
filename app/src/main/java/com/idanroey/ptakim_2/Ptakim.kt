@@ -86,8 +86,8 @@ class Ptakim(filteredCategories: IntArray, private val numberOfWords: Int, priva
         currentTeam.rightGuess()
     }
 
-    fun leftWords(): String{
-        return roundWordList.size.toString()
+    fun leftWords(): Int {
+        return roundWordList.size
     }
 
 }

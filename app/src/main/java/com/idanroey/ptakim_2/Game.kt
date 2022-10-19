@@ -3,7 +3,6 @@ package com.idanroey.ptakim_2
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.*
@@ -32,7 +31,7 @@ class Game : AppCompatActivity() {
     private lateinit var team1View: TextView
     private lateinit var team2View: TextView
     private lateinit var word: TextView
-    private lateinit var leftNumOfWordsTextView: TextView
+    private lateinit var leftNumOfWords: TextView
 
 
     // Timer var
@@ -100,8 +99,8 @@ class Game : AppCompatActivity() {
             getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         }
 
-        leftNumOfWordsTextView = findViewById(R.id.leftWordsTextViewInt)
-        leftNumOfWordsTextView.text = numberOfWords.toString()
+        leftNumOfWords = findViewById(R.id.left_words)
+        leftNumOfWords.text = getString(R.string.left_words_text).format(numberOfWords)
 
         team1 = Team(1)
         team2 = Team(2)
@@ -133,7 +132,10 @@ class Game : AppCompatActivity() {
                 } else {
                     nextRound()
                 }
-                leftNumOfWordsTextView.text = game.leftWords()
+                val t = getString(R.string.left_words_text)
+                val i = game.leftWords()
+                val s = t.format(i)
+                leftNumOfWords.text = s
             }
         }
 
@@ -241,28 +243,33 @@ class Game : AppCompatActivity() {
     private fun createRoundAlertDialog(round:Int){
         createNewAlertDialog()
         val upperText = dialog.findViewById<TextView>(R.id.upperText)
-        var lowerText = dialog.findViewById<TextView>(R.id.lowerText)
-        val dialogButton: Button? = dialog.findViewById(R.id.alertDialogButton)
-        if(round == 1){
-         //round 1 text
-            dialog.findViewById<TextView>(R.id.upperText)?.text =   "סיבוב ראשון"
-            dialog.findViewById<TextView>(R.id.lowerText)?.text = String.format( getString(R.string.round1text),game.currentTeam.teamNumber)
+        val lowerText = dialog.findViewById<TextView>(R.id.lowerText)
+        val dialogButton = dialog.findViewById<Button>(R.id.alertDialogButton)
 
-        } else if(round == 2) {
-            //round 2 text
-            dialog.findViewById<TextView>(R.id.upperText)?.text =   "סיבוב שני"
-            dialog.findViewById<TextView>(R.id.lowerText)?.text = String.format( getString(R.string.round2text),game.currentTeam.teamNumber)
-        } else if (round == 3){
-            //round 3 text
-            dialog.findViewById<TextView>(R.id.upperText)?.text =   "סיבוב אחרון"
-            dialog.findViewById<TextView>(R.id.lowerText)?.text = String.format( getString(R.string.round3text),game.currentTeam.teamNumber)
+        val title: String = when (roundNumber) {
+            1 -> getString(R.string.level_one)
+            2 -> getString(R.string.level_two)
+            3 -> getString(R.string.level_three)
+            else -> getString(R.string.endGameText)
+        }
+
+        val description: String = when(roundNumber) {
+            1 -> getString(R.string.round1text)
+            2 -> getString(R.string.round2text)
+            3 -> getString(R.string.round3text)
+            else -> "You shouldn't see that"
+        }.format(game.currentTeam.teamNumber)
+
+        if (round <= 3) {
+            upperText!!.text = title
+            lowerText!!.text = description
 
         } else {
             //game ends + changing dialogButton function
-            dialog.findViewById<TextView>(R.id.upperText)?.text =   "המשחק נגמר"
-            dialog.findViewById<TextView>(R.id.lowerText)?.text = String.format( getString(R.string.endGameText),if(team1.getScore()>team2.getScore())1 else 2)
-            dialog.findViewById<Button>(R.id.alertDialogButton)?.text = "התחל משחק חדש"
-            dialog.findViewById<Button>(R.id.alertDialogButton)?.setOnClickListener {
+            upperText!!.text =   "המשחק נגמר"
+            lowerText!!.text = String.format( getString(R.string.endGameText),if(team1.getScore()>team2.getScore())1 else 2)
+            dialogButton!!.text = "התחל משחק חדש"
+            dialogButton.setOnClickListener {
                 val intent = Intent(this, CategoriesMenu::class.java)
                 intent.putExtra("numberOfWords", numberOfWords)
                 intent.putExtra("timePerRound", START_TIME_IN_MILLIS)

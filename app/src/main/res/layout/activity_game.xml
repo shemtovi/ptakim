@@ -137,30 +137,15 @@
         />
 
     <TextView
-        android:id="@+id/leftWordsTextView"
+        android:id="@+id/left_words"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/leftWordsTextView"
+        android:text="@string/left_words_text"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.639"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider"
-        app:layout_constraintVertical_bias="0.511" />
-
-    <TextView
-        android:id="@+id/leftWordsTextViewInt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:text="@string/leftWordsTextViewInt"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/leftWordsTextView"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider"
-        app:layout_constraintVertical_bias="0.511" />
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="15dp"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
