@@ -32,7 +32,7 @@ class Game : AppCompatActivity() {
     private lateinit var leftNumOfWordsTextView: TextView
 
 
-    //timer var
+    // Timer var
     private var START_TIME_IN_MILLIS = 10000L
     private var mTimerRunning = false
     private var mTimeLeftInMillis: Long = START_TIME_IN_MILLIS
@@ -43,6 +43,34 @@ class Game : AppCompatActivity() {
     private lateinit var vibrator: Vibrator
     private lateinit var bilder: AlertDialog.Builder
     private  lateinit var dialog: AlertDialog
+
+    // Vibration effects
+    private val repeat = -1
+    @RequiresApi(Build.VERSION_CODES.O)
+    private val timerEndVibrationEffect = VibrationEffect.createWaveform(
+        longArrayOf(0, 75, 50, 75, 50, 75),
+        intArrayOf(0, 50, 0, 50, 0, 50),
+        repeat
+    )
+    @RequiresApi(Build.VERSION_CODES.O)
+    private val roundEndVibrationEffect = VibrationEffect.createWaveform(
+        longArrayOf(0, 150,),
+        intArrayOf(0, 255,),
+        repeat
+    )
+    @RequiresApi(Build.VERSION_CODES.O)
+    private val rightGuessVibrationEffect = VibrationEffect.createWaveform(
+        longArrayOf(0, 75,),
+        intArrayOf(0, 75,),
+        repeat
+    )
+    @RequiresApi(Build.VERSION_CODES.O)
+    private val wrongGuessVibrationEffect = VibrationEffect.createWaveform(
+        longArrayOf(0, 75, 75, 75,),
+        intArrayOf(0, 100, 0, 100,),
+        repeat
+    )
+
 
 
     @SuppressLint("MissingInflatedId")
@@ -57,7 +85,6 @@ class Game : AppCompatActivity() {
         vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             val vibratorManager= getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
             vibratorManager.defaultVibrator
-
         } else {
             getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         }
@@ -84,7 +111,7 @@ class Game : AppCompatActivity() {
 
         findViewById<ImageButton>(R.id.right_button).setOnClickListener {
             if(mTimerRunning){
-                it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                vibrator.vibrate(rightGuessVibrationEffect)
                 game.rightGuess()
                 if (game.currentTeam === team1) {
                     player1Score.text = team1.getScore().toString()
@@ -102,19 +129,14 @@ class Game : AppCompatActivity() {
 
         findViewById<ImageButton>(R.id.wrong_button).setOnClickListener {
             if(mTimerRunning){
-            val handler = Handler(Looper.getMainLooper())
-            it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            handler.postDelayed(
-                {it.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)},
-                100
-            )
-            game.wrongGuess()
-                if (game.currentTeam === team1) {
-                    player1Score.text = team1.getScore().toString()
-                } else {
-                    player2Score.text = team2.getScore().toString()
-                }
-                word.text = game.drawPetek()
+                vibrator.vibrate(wrongGuessVibrationEffect)
+                game.wrongGuess()
+                    if (game.currentTeam === team1) {
+                        player1Score.text = team1.getScore().toString()
+                    } else {
+                        player2Score.text = team2.getScore().toString()
+                    }
+                    word.text = game.drawPetek()
             }
         }
 
@@ -124,12 +146,11 @@ class Game : AppCompatActivity() {
         }
     }
 
-
     @RequiresApi(Build.VERSION_CODES.Q)
     private fun nextRound() {
         if (roundNumber < 3) {
             roundNumber++
-            vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_HEAVY_CLICK))
+            vibrator.vibrate(roundEndVibrationEffect)
             resetTimer()
             game.teamSwitch()
             updateTeamsViews()
@@ -159,10 +180,12 @@ class Game : AppCompatActivity() {
                 }
             }
 
+            @RequiresApi(Build.VERSION_CODES.O)
             override fun onFinish() {
                 resetTimer()
                 game.teamSwitch()
                 updateTeamsViews()
+                vibrator.vibrate(timerEndVibrationEffect)
                 //popup window
                 createStopAlertDialog()
             }
@@ -211,14 +234,12 @@ class Game : AppCompatActivity() {
             if (upperText != null) {
                 upperText.text = "שלב 1"
             }
-        }
-        else if(round == 2){
+        } else if(round == 2) {
             //round 2 text
             if (upperText != null) {
                 upperText.text = "שלב 2"
             }
-        }
-        else{
+        } else {
             //round 3 text + changing dialogButton function
             if (upperText != null) {
                 upperText.text = "שלב 3"
@@ -230,12 +251,8 @@ class Game : AppCompatActivity() {
                     this.finish()
                 }
             }
-
         }
-
-
     }
-
 
     fun dialogButton(view: View){
         dialog.dismiss()
