@@ -5,7 +5,6 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.*
-import android.view.HapticFeedbackConstants
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
@@ -41,33 +40,29 @@ class Game : AppCompatActivity() {
 
     // Resources
     private lateinit var vibrator: Vibrator
-    private lateinit var bilder: AlertDialog.Builder
+    private lateinit var builder: AlertDialog.Builder
     private lateinit var dialog: AlertDialog
 
     // Vibration effects
     private val repeat = -1
-    @RequiresApi(Build.VERSION_CODES.O)
     private val timerEndVibrationEffect = VibrationEffect.createWaveform(
         longArrayOf(0, 75, 50, 75, 50, 75),
         intArrayOf(0, 50, 0, 50, 0, 50),
         repeat
     )
-    @RequiresApi(Build.VERSION_CODES.O)
     private val roundEndVibrationEffect = VibrationEffect.createWaveform(
-        longArrayOf(0, 150,),
-        intArrayOf(0, 255,),
+        longArrayOf(0, 150),
+        intArrayOf(0, 255),
         repeat
     )
-    @RequiresApi(Build.VERSION_CODES.O)
     private val rightGuessVibrationEffect = VibrationEffect.createWaveform(
-        longArrayOf(0, 75,),
-        intArrayOf(0, 75,),
+        longArrayOf(0, 75),
+        intArrayOf(0, 75),
         repeat
     )
-    @RequiresApi(Build.VERSION_CODES.O)
     private val wrongGuessVibrationEffect = VibrationEffect.createWaveform(
-        longArrayOf(0, 75, 75, 75,),
-        intArrayOf(0, 100, 0, 100,),
+        longArrayOf(0, 75, 75, 75),
+        intArrayOf(0, 100, 0, 100),
         repeat
     )
 
@@ -175,7 +170,7 @@ class Game : AppCompatActivity() {
     }
 
     //timer functions
-    fun startTimer() {
+    private fun startTimer() {
         timer = object : CountDownTimer(mTimeLeftInMillis, 100) {
             override fun onTick(millisUntilFinished: Long) {
                 if((millisUntilFinished / 1000) != mTimeLeftInMillis ){
@@ -184,7 +179,7 @@ class Game : AppCompatActivity() {
                 }
             }
 
-            @RequiresApi(Build.VERSION_CODES.O)
+
             override fun onFinish() {
                 resetTimer()
                 game.teamSwitch()
@@ -203,17 +198,17 @@ class Game : AppCompatActivity() {
         timerView.text = (mTimeLeftInMillis / 1000).toString()
     }
 
-    fun pauseTimer(){
+    private fun pauseTimer(){
         timer.cancel()
         mTimerRunning = false
     }
 
     //dialog functions
-    fun createNewAlertDialog(){
-        bilder =AlertDialog.Builder(this)
+    private fun createNewAlertDialog(){
+        builder =AlertDialog.Builder(this)
         val view = View.inflate(this@Game,R.layout.alert_dialog_stages,null)
-        bilder.setView(view)
-        dialog = bilder.create()
+        builder.setView(view)
+        dialog = builder.create()
         dialog.show()
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialog.setCanceledOnTouchOutside(false)
@@ -228,7 +223,7 @@ class Game : AppCompatActivity() {
 
     }
 
-    fun createRoundAlertDialog(round:Int){
+    private fun createRoundAlertDialog(round:Int){
         createNewAlertDialog()
         val upperText = dialog.findViewById<TextView>(R.id.upperText)
         var lowerText = dialog.findViewById<TextView>(R.id.lowerText)
