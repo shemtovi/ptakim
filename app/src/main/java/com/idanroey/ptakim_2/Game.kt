@@ -246,32 +246,30 @@ class Game : AppCompatActivity() {
     @SuppressLint("ResourceType")
     private fun createRoundAlertDialog(round:Int){
         createNewAlertDialog()
-        val upperText = dialog.findViewById<TextView>(R.id.upperText)
-        val lowerText = dialog.findViewById<TextView>(R.id.lowerText)
+        val titleView = dialog.findViewById<TextView>(R.id.upperText)
+        val descriptionView = dialog.findViewById<TextView>(R.id.lowerText)
         val dialogButton = dialog.findViewById<Button>(R.id.alertDialogButton)
 
         val title: String = when (roundNumber) {
             1 -> getString(R.string.level_one)
             2 -> getString(R.string.level_two)
             3 -> getString(R.string.level_three)
-            else -> getString(R.string.endGameText)
+            else -> getString(R.string.game_over)
         }
 
         val description: String = when(roundNumber) {
             1 -> getString(R.string.round1text)
             2 -> getString(R.string.round2text)
             3 -> getString(R.string.round3text)
-            else -> "You shouldn't see that"
+            else -> String.format( getString(R.string.endGameText), if (team1.getScore() > team2.getScore()) 1 else 2)
         }.format(game.currentTeam.teamNumber)
 
-        if (round <= 3) {
-            upperText!!.text = title
-            lowerText!!.text = description
 
-        } else {
-            //game ends + changing dialogButton function
-            upperText!!.text =   "המשחק נגמר"
-            lowerText!!.text = String.format( getString(R.string.endGameText),if(team1.getScore()>team2.getScore())1 else 2)
+        titleView!!.text = title
+        descriptionView!!.text = description
+
+        if (round > 3) {
+            // changing dialogButton function
             dialogButton!!.text = "התחל משחק חדש"
             dialogButton.setOnClickListener {
                 val intent = Intent(this, CategoriesMenu::class.java)
