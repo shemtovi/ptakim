@@ -102,6 +102,9 @@ class Game : AppCompatActivity() {
         leftNumOfWords = findViewById(R.id.left_words)
         leftNumOfWords.text = getString(R.string.left_words_text).format(numberOfWords)
 
+        val roundView = findViewById<TextView>(R.id.round)
+        roundView.text = String.format( getString(R.string.round_number),roundNumber)
+
         team1 = Team(1)
         team2 = Team(2)
         game = Ptakim(selectedCategories, numberOfWords, team1, team2)
@@ -131,6 +134,7 @@ class Game : AppCompatActivity() {
                     word.text = game.drawPetek()
                 } else {
                     nextRound()
+                    roundView.text = String.format( getString(R.string.round_number),roundNumber)
                 }
                 val t = getString(R.string.left_words_text)
                 val i = game.leftWords()

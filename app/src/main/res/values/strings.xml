@@ -22,7 +22,7 @@
 
 
     <string name="dagim">דגים</string>
-    <string name="round_number">סיבוב מס:%1d</string>
+    <string name="round_number">סיבוב מס: %1d</string>
     <string name="playing_team">תור של קבוצה מס: %1d</string>
     <string name="round1text">מותר:%n לתאר את מה שכתוב בכמה מילים שרוצים%n אסור:%n לומר מילים שכתובות על הפתק או מתחרזות בו  %n %n  התור הוא של קבוצה %1d</string>
     <string name="round2text">מותר:%n לתאר את מה שכתוב במילה אחת בלבד%n אסור:%n לומר יותר ממילה אחת או מילה שכתובה על הפתק או מתחרזת בו  %n %n  התור הוא של קבוצה %1d </string>
@@ -37,7 +37,7 @@
     <string name="level_two">שלב שני: מילה</string>
     <string name="level_three">שלב שלישי: פנטומימה</string>
 
-    <string name="left_words_text">נשארו %1d מילים</string>
+    <string name="left_words_text">נותרו %1d מילים</string>
     <string name="leftWordsTextViewInt">0</string>
     <string name="plus">+</string>
     <string name="minus">-</string>
