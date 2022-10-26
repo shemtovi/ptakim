@@ -8,6 +8,7 @@ import android.graphics.Typeface
 import android.os.*
 import android.view.HapticFeedbackConstants
 import android.view.View
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
@@ -83,6 +84,7 @@ class Game : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
          numberOfWords = this.intent.getIntExtra("numberOfWords", 20)
          selectedCategories = this.intent.getIntArrayExtra("filteredCategories")!!
