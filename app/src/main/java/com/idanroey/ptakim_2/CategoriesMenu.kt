@@ -18,6 +18,7 @@ class CategoriesMenu : AppCompatActivity(), View.OnClickListener  {
         R.id.sports to false,
         R.id.nature to false,
         R.id.scientists to false,
+        R.id.hamisiSalof to false,
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,6 +33,7 @@ class CategoriesMenu : AppCompatActivity(), View.OnClickListener  {
         val sports = findViewById<Button>(R.id.sports)
         val nature = findViewById<Button>(R.id.nature)
         val scientists = findViewById<Button>(R.id.scientists)
+        val hamisiSalof = findViewById<Button>(R.id.hamisiSalof)
 
         places.setOnClickListener(this)
         movies.setOnClickListener(this)
@@ -41,6 +43,7 @@ class CategoriesMenu : AppCompatActivity(), View.OnClickListener  {
         sports.setOnClickListener(this)
         nature.setOnClickListener(this)
         scientists.setOnClickListener(this)
+        hamisiSalof.setOnClickListener(this)
 
     }
 

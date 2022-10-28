@@ -10,6 +10,8 @@
         android:id="@+id/game_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:text="@string/game_title"
         android:textSize="60sp"
         android:textStyle="bold"
@@ -31,8 +33,8 @@
 
     <Button
         android:id="@+id/StartButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="350dp"
+        android:layout_height="65dp"
         android:onClick="start"
         android:text="@string/start_playing"
         style="@style/PrimaryTextButton"

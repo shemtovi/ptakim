@@ -287,8 +287,7 @@ class Game : AppCompatActivity() {
         startTimer()
     }
 
-    fun startNewGame(view:View){
-        view!!.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+    fun startNewGame(){
         val intent = Intent(this, CategoriesMenu::class.java)
         intent.putExtra("numberOfWords", numberOfWords)
         intent.putExtra("timePerRound", START_TIME_IN_MILLIS)

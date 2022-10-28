@@ -14,6 +14,7 @@
     <string name="sport">ספורט</string>
     <string name="nature">טבע</string>
     <string name="scientists">מדענים וממציאים</string>
+    <string name="hamisiSalof">חמישי סלוף</string>
 
     <string name="player_1">קבוצה 1:</string>
     <string name="player_2">קבוצה 2:</string>
@@ -30,8 +31,8 @@
     <string name="endGameText">הקבוצה המנצחת היא %n  קבוצה מספר: %1d</string>
     <string name="categories">בחירת קטגוריות</string>
     <string name="game_title">פתקים</string>
-    <string name="num_of_cards_title">מספר פתקים</string>
-    <string name="timer_help">משך סיבוב</string>
+    <string name="num_of_cards_title">מספר פתקים:</string>
+    <string name="timer_help">משך סיבוב:</string>
     <string name="start_playing">יאללה בא לי לשחק</string>
     <string name="level_one">שלב ראשון: תיאור</string>
     <string name="level_two">שלב שני: מילה</string>
