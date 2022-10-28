@@ -136,7 +136,7 @@ class Game : AppCompatActivity() {
                     word.text = game.drawPetek()
                 } else {
                     nextRound()
-                    roundView.text = String.format( getString(R.string.round_number),roundNumber)
+                    if (roundNumber <= 3) { roundView.text = String.format( getString(R.string.round_number),roundNumber) }
                 }
                 val t = getString(R.string.left_words_text)
                 val i = game.leftWords()
