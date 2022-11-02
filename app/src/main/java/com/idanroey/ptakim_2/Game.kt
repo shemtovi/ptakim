@@ -205,7 +205,6 @@ class Game : AppCompatActivity() {
             override fun onFinish() {
                 resetTimer()
                 game.teamSwitch()
-                word.text = game.drawPetek()
                 updateTeamsViews()
                 vibrator.vibrate(timerEndVibrationEffect)
                 //popup window
@@ -235,7 +234,6 @@ class Game : AppCompatActivity() {
         dialog.show()
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialog.setCanceledOnTouchOutside(false)
-        TODO()//return button function
         dialog.setCancelable(false)
     }
 
