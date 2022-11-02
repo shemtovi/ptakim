@@ -285,6 +285,7 @@ class Game : AppCompatActivity() {
     fun dialogButton(view: View){
         dialog.dismiss()
         startTimer()
+        word.text = game.drawPetek()
     }
 
     fun startNewGame(){
