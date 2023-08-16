@@ -57,8 +57,10 @@
 
     <Button
         android:id="@+id/plus_words"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textAlignment="center"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
         android:onClick="plusWords"
         android:text="@string/plus"
         app:backgroundTint="@null"
@@ -72,8 +74,10 @@
 
     <Button
         android:id="@+id/plus_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textAlignment="center"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
         android:onClick="plusTime"
         android:text="@string/plus"
         app:backgroundTint="@null"
@@ -87,8 +91,10 @@
 
     <Button
         android:id="@+id/minus_words"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textAlignment="center"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
         android:onClick="minusWords"
         android:text="@string/minus"
         app:backgroundTint="@null"
@@ -102,8 +108,10 @@
 
     <Button
         android:id="@+id/minus_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textAlignment="center"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
         android:onClick="minusTime"
         android:text="@string/minus"
         app:backgroundTint="@null"
@@ -117,8 +125,10 @@
 
     <Button
         android:id="@+id/choose_categories"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="350dp"
+        android:layout_height="65dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:onClick="start"
         style="@style/PrimaryTextButton"
         android:text="@string/choose_categories_button"

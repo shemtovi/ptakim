@@ -136,7 +136,7 @@ class Game : AppCompatActivity() {
                     word.text = game.drawPetek()
                 } else {
                     nextRound()
-                    roundView.text = String.format( getString(R.string.round_number),roundNumber)
+                    if (roundNumber <= 3) { roundView.text = String.format( getString(R.string.round_number),roundNumber) }
                 }
                 val t = getString(R.string.left_words_text)
                 val i = game.leftWords()
@@ -285,14 +285,6 @@ class Game : AppCompatActivity() {
     fun dialogButton(view: View){
         dialog.dismiss()
         startTimer()
+        word.text = game.drawPetek()
     }
-
-    fun startNewGame(view:View){
-        view!!.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-        val intent = Intent(this, CategoriesMenu::class.java)
-        intent.putExtra("numberOfWords", numberOfWords)
-        intent.putExtra("timePerRound", START_TIME_IN_MILLIS)
-        startActivity(intent)
-    }
-
 }

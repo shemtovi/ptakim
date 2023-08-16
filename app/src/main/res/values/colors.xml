@@ -12,7 +12,7 @@
     <color name="popup_background">#FFFFFF</color>
     <color name="text_color">#171717</color>
     <color name="primary">#1A3343</color>
-    <color name="secondary">#FF0000</color>
+    <color name="secondary">#0C0C0C</color>
     <color name="plusMinusButton_background">#829090</color>
     <color name="plusMinusButton_text">#FFF</color>
     <color name="status_bar">#D8CAC5</color>
