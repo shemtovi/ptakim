@@ -169,15 +169,17 @@ class Game : AppCompatActivity() {
         if (roundNumber < 3) {
             roundNumber++
             vibrator.vibrate(roundEndVibrationEffect)
-            resetTimer()
-            game.teamSwitch()
-            updateTeamsViews()
+
+            //resetTimer()
+            //game.teamSwitch()
+            //updateTeamsViews()
             game.startRound()
             word.text = game.drawPetek()
         }
         else roundNumber = 4
         //popup window
-        resetTimer()
+        //resetTimer()
+        pauseTimer()
         createRoundAlertDialog(roundNumber)
     }
 
