@@ -3,6 +3,7 @@ package com.idanroey.ptakim_2
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.HapticFeedbackConstants
 import android.view.View
 import android.widget.Button
@@ -19,6 +20,18 @@ class CategoriesMenu : AppCompatActivity(), View.OnClickListener  {
         R.id.nature to false,
         R.id.scientists to false,
         R.id.hamisiSalof to false,
+    )
+
+    private val categoriesId = mapOf(
+        R.id.places to 1,
+        R.id.movies to 2,
+        R.id.companies to 3,
+        R.id.objects to 4,
+        R.id.cultureLeaders to 5,
+        R.id.sports to 6,
+        R.id.nature to 7,
+        R.id.scientists to 8,
+        R.id.hamisiSalof to 9,
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,7 +76,9 @@ class CategoriesMenu : AppCompatActivity(), View.OnClickListener  {
         if (categories.values.count { it } > 0) {
             val numberOfWords = this.intent.getIntExtra("numberOfWords", 20)
             val timePerRound = this.intent.getLongExtra("timePerRound", 60000)
-            val filteredCategories = categories.filter { (_, bool) -> bool}.keys.toIntArray()
+            val filteredCategories = categoriesId.filter {
+                    entry -> categories[entry.key] == true
+            }.values.toIntArray()
             val intent = Intent(this, Game::class.java)
             intent.putExtra("filteredCategories", filteredCategories)
             intent.putExtra("numberOfWords", numberOfWords)

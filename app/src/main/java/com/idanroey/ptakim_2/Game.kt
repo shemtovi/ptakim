@@ -111,7 +111,7 @@ class Game : AppCompatActivity() {
 
         team1 = Team(1)
         team2 = Team(2)
-        game = Ptakim(selectedCategories, numberOfWords, team1, team2)
+        game = Ptakim(this, selectedCategories, numberOfWords, team1, team2)
 
         player1Score = findViewById(R.id.player1_ScoreBoard)
         player2Score = findViewById(R.id.player2_ScoreBoard)
