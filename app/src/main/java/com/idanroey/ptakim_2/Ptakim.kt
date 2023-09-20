@@ -43,19 +43,20 @@ class Ptakim(filteredCategories: IntArray, private val numberOfWords: Int, priva
 
     init {
         val numberOfCategories = filteredCategories.count()
-        val wordsPerCategory = IntArray(numberOfCategories)
 
+        // Initialize an array of ints for each selected category and the amount for each category
+        val wordsPerCategory = IntArray(numberOfCategories)
+        //  Select random amount and adjust to scale
         for (i in 0 until numberOfCategories) {
             wordsPerCategory[i] = (1..numberOfWords).random()
         }
 
         val sum = wordsPerCategory.sum()
-        val scale = numberOfWords.toDouble() / sum.toDouble()
-
+        val scale = (numberOfWords.toDouble() - numberOfCategories) / sum.toDouble()
         for ((index, number) in wordsPerCategory.withIndex()) {
-            wordsPerCategory[index] = (number * scale).toInt()
+            wordsPerCategory[index] = (number * scale).toInt() + 1
         }
-
+        // Add missing amount to random categories
         while (wordsPerCategory.sum() != numberOfWords) {
             wordsPerCategory[(0 until numberOfCategories).random()] += 1
         }
