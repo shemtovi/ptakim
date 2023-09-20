@@ -86,10 +86,12 @@ class Game : AppCompatActivity() {
         setContentView(R.layout.activity_game)
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
-         numberOfWords = this.intent.getIntExtra("numberOfWords", 20)
-         selectedCategories = this.intent.getIntArrayExtra("filteredCategories")!!
+        numberOfWords = this.intent.getIntExtra("numberOfWords", 20)
+        selectedCategories = this.intent.getIntArrayExtra("filteredCategories")!!
 
-        START_TIME_IN_MILLIS = this.intent.getLongExtra("timePerRound", 60000)
+        val chosenTimer = this.intent.getLongExtra("timePerRound", 60000)
+
+        START_TIME_IN_MILLIS = chosenTimer
         mTimeLeftInMillis = START_TIME_IN_MILLIS
         timerView = findViewById(R.id.timer)
         timerView.text = (START_TIME_IN_MILLIS / 1000).toString()
