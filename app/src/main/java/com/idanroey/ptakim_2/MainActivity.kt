@@ -29,4 +29,10 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, howMuchCards::class.java)
         startActivity(intent)
     }
+
+    fun hideScreen (view: View?) {
+        view!!.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+        val intent = Intent(this, hideWords::class.java)
+        startActivity(intent)
+    }
 }

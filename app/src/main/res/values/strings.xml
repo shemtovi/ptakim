@@ -44,5 +44,6 @@
     <string name="leftWordsTextViewInt">0</string>
     <string name="plus">+</string>
     <string name="minus">-</string>
+    <string name="hide_words">הסתרת מילים</string>
 
 </resources>

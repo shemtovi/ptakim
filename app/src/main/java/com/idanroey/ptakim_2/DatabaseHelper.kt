@@ -2,9 +2,9 @@ package com.idanroey.ptakim_2
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
-import android.database.sqlite.SQLiteException
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
+import androidx.core.content.contentValuesOf
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -35,7 +35,7 @@ class DatabaseHelper(private val context: Context) : SQLiteOpenHelper(context, D
                 throw RuntimeException("Error copying database")
             }
         } else {
-            Log.d("conn", "file was found(?)")
+            Log.d("conn", "file was found")
         }
     }
 
@@ -84,5 +84,51 @@ class DatabaseHelper(private val context: Context) : SQLiteOpenHelper(context, D
         }
 
         return wordList
+    }
+
+    fun getAllWordsForCategory(categoryId: Int): MutableList<Triple<Int, String, Boolean>> {
+        val wordList = mutableListOf<Triple<Int, String, Boolean>>()
+        val db = readableDatabase
+        val selection = "category_id = ?"
+        val selectionArgs = arrayOf(categoryId.toString())
+
+        val cursor = db.query(
+            "words", // Table name
+            arrayOf("word_id", "word_text", "is_active"), // Columns to retrieve
+            selection, // WHERE clause
+            selectionArgs, // Values for the WHERE clause
+            null,
+            null,
+            "word_text",
+        )
+
+        cursor.use { cursor ->
+            while (cursor.moveToNext()) {
+                val wordId = cursor.getInt(cursor.getColumnIndexOrThrow("word_id"))
+                val wordText = cursor.getString(cursor.getColumnIndexOrThrow("word_text"))
+                val isActive = cursor.getInt(cursor.getColumnIndexOrThrow("is_active")) == 1
+                wordList.add(Triple(wordId, wordText, isActive))
+            }
+        }
+
+        return wordList
+    }
+
+    fun hideWord(wordId: Int) {
+        val db = writableDatabase
+        val table = "words"
+        val values = contentValuesOf(Pair("is_active", 0))
+        val whereClause = "word_id = ?"
+        val whereArgs = arrayOf(wordId.toString())
+        db.update(table, values, whereClause, whereArgs)
+    }
+
+    fun unhideWord(wordId: Int) {
+        val db = writableDatabase
+        val table = "words"
+        val values = contentValuesOf(Pair("is_active", 1))
+        val whereClause = "word_id = ?"
+        val whereArgs = arrayOf(wordId.toString())
+        db.update(table, values, whereClause, whereArgs)
     }
 }

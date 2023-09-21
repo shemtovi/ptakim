@@ -32,6 +32,22 @@
         app:layout_constraintTop_toBottomOf="@id/game_title" />
 
     <Button
+        android:id="@+id/hideWords"
+        style="@style/PrimaryTextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="10sp"
+        android:paddingEnd="10sp"
+        android:text="@string/hide_words"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@id/StartButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/description"
+        app:layout_constraintVertical_bias="0.95"
+        android:onClick="hideScreen" />
+
+    <Button
         android:id="@+id/StartButton"
         android:layout_width="350dp"
         android:layout_height="65dp"
