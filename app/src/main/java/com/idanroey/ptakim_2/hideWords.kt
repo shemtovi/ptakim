@@ -11,9 +11,24 @@ import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.room.Room
+import com.idanroey.ptakim_2.db.WordDatabase
+import com.idanroey.ptakim_2.db.WordEntity
+//import com.idanroey.ptakim_2.db.WordInfo
+import com.idanroey.ptakim_2.utils.Constants.WORDS_ASSET
+import com.idanroey.ptakim_2.utils.Constants.WORDS_DATABASE
 
 class hideWords : AppCompatActivity() {
 //    private var wordList: List<Triple<Int, String, Boolean>>? = null
+
+    private val wordDb: WordDatabase by lazy {
+        Room.databaseBuilder(this, WordDatabase::class.java, WORDS_DATABASE)
+            .allowMainThreadQueries()
+            .fallbackToDestructiveMigration()
+            .createFromAsset(WORDS_ASSET)
+            .build()
+    }
+
 
     private val categoriesId = mapOf(
         "Places" to 1,
@@ -27,13 +42,9 @@ class hideWords : AppCompatActivity() {
         "Hamisi Salof" to 9,
     )
 
-    private var db: DatabaseHelper? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hide_words)
-
-        db = DatabaseHelper(this)
 
         // Initialize your buttons
         val placesButton = findViewById<Button>(R.id.places)
@@ -73,13 +84,13 @@ class hideWords : AppCompatActivity() {
 
     private fun showWordListDialog(category: String) {
         // Replace the following with your actual list of words from the database
-        val wordList = db!!.getAllWordsForCategory(categoriesId[category]!!)
+        val wordList = wordDb.dao().getAllWordsForCategory(categoriesId[category]!!)
 
         // Create a dialog builder
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Words in $category") // Set the dialog title
 
-        val wordTexts = wordList.map { it.second }.toTypedArray()
+        val wordTexts = wordList.map { it.wordText }.toTypedArray()
 
 
         // Create an ArrayAdapter with a custom view to display the words with strikethrough for hidden words
@@ -87,7 +98,7 @@ class hideWords : AppCompatActivity() {
             override fun getView(position: Int, convertView: View?, parent: android.view.ViewGroup): View {
                 val view = super.getView(position, convertView, parent)
                 val word = wordList[position]
-                if (!word.third) {
+                if (word.isActive == 0) {
                     // Apply strikethrough for hidden words
                     (view as TextView).paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
                 } else {
@@ -111,32 +122,51 @@ class hideWords : AppCompatActivity() {
         // Set a click listener for the ListView items to handle word clicks
         listView.setOnItemClickListener { _, _, position, _ ->
             val selectedWord = wordList[position]
-            if (selectedWord.third) {
+            Log.d("hidee", "sel: $selectedWord is_ac: ${selectedWord.isActive}")
+            if (selectedWord.isActive == 1) {
                 // Word is active, call the hideWord function with the word's ID
-                hideWord(wordList, listView, selectedWord.first, position)
+                hideWord(wordList, listView, selectedWord, position)
             } else {
-                unhideWord(wordList, listView, selectedWord.first, position)
+                unhideWord(wordList, listView, selectedWord, position)
             }
         }
 
     }
 
-    private fun hideWord(wordList: MutableList<Triple<Int, String, Boolean>>, listView: ListView, wordId: Int, position: Int) {
-        db!!.hideWord(wordId)
+    private fun hideWord(wordList: Array<WordEntity>, listView: ListView, word: WordEntity, position: Int) {
+        Log.d("hidee", "hiding word ${word.wordText}")
+//        wordDb.dao().hideWord(wordId)
+        val newWord = WordEntity(word.wordId, word.wordText, word.categoryId, 0)
+        Log.d("hidee", "new word: $newWord")
+        wordDb.dao().updateWord(newWord)
+
+        val updated = wordDb.dao().getWord(newWord.wordId)[0]
+        Log.d("hidee", updated.toString())
 
         // Update the active status in the wordList
-        wordList[position] = wordList[position].copy(third = false)
+        wordList[position] = newWord
 
         // Notify the adapter that the data has changed, so it will update the view
         val adapter = (listView.adapter as? ArrayAdapter<String>)
         adapter?.notifyDataSetChanged()
     }
 
-    private fun unhideWord(wordList: MutableList<Triple<Int, String, Boolean>>, listView: ListView, wordId: Int, position: Int) {
-        db!!.unhideWord(wordId)
+    private fun unhideWord(wordList: Array<WordEntity>, listView: ListView, word: WordEntity, position: Int) {
+//        Log.d("hidee", "unhiding word $wordId")
+//        wordDb.dao().unhideWord(wordId)
+//        val newWord = word.copy(isActive = 1)
+        Log.d("hidee", "unhiding word ${word.wordText}")
+        val newWord = WordEntity(word.wordId, word.wordText, word.categoryId, 1)
+        Log.d("hidee", "new word: $newWord")
+        wordDb.dao().updateWord(newWord)
+
+
+        val updated = wordDb.dao().getWord(newWord.wordId)[0]
+        Log.d("hidee", updated.toString())
+
 
         // Update the active status in the wordList
-        wordList[position] = wordList[position].copy(third = true)
+        wordList[position] = wordList[position].copy(isActive = 1)
 
         // Notify the adapter that the data has changed, so it will update the view
         val adapter = (listView.adapter as? ArrayAdapter<String>)

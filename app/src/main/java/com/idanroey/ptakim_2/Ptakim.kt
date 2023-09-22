@@ -2,8 +2,9 @@ package com.idanroey.ptakim_2
 
 import android.content.Context
 import android.util.Log
+import com.idanroey.ptakim_2.db.WordDatabase
 
-class Ptakim(context: Context, filteredCategories: IntArray, private val numberOfWords: Int, private val team1: Team, private val team2: Team) {
+class Ptakim(db: WordDatabase, filteredCategories: IntArray, private val numberOfWords: Int, private val team1: Team, private val team2: Team) {
 
     var currentTeam: Team
     val wordsArray: Set<String>
@@ -32,15 +33,12 @@ class Ptakim(context: Context, filteredCategories: IntArray, private val numberO
             wordsPerCategory[(0 until numberOfCategories).random()] += 1
         }
 
-        val databaseHelper = DatabaseHelper(context)
-
         val wordsArray = Array(numberOfWords) { "" }
         var i = 0
         for ((index, category) in filteredCategories.withIndex()) {
-            val words = databaseHelper.getNWordsByCategory(category, wordsPerCategory[index])
-            for (j in 0 until wordsPerCategory[index]) {
-                wordsArray[i] = words[j]
-                i++
+            val words = db.dao().getNWordsByCategory(category, wordsPerCategory[index])
+            for (word in words) {
+                wordsArray[i++] = word
             }
         }
         wordsArray.shuffle()
