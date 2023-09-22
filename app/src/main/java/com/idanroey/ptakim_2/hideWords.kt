@@ -12,7 +12,7 @@ import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.room.Room
-import com.idanroey.ptakim_2.db.WordDatabase
+import com.idanroey.ptakim_2.db.WordsDatabase
 import com.idanroey.ptakim_2.db.WordEntity
 //import com.idanroey.ptakim_2.db.WordInfo
 import com.idanroey.ptakim_2.utils.Constants.WORDS_ASSET
@@ -21,13 +21,7 @@ import com.idanroey.ptakim_2.utils.Constants.WORDS_DATABASE
 class hideWords : AppCompatActivity() {
 //    private var wordList: List<Triple<Int, String, Boolean>>? = null
 
-    private val wordDb: WordDatabase by lazy {
-        Room.databaseBuilder(this, WordDatabase::class.java, WORDS_DATABASE)
-            .allowMainThreadQueries()
-            .fallbackToDestructiveMigration()
-            .createFromAsset(WORDS_ASSET)
-            .build()
-    }
+    private lateinit var wordDb: WordsDatabase
 
 
     private val categoriesId = mapOf(
@@ -45,6 +39,8 @@ class hideWords : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hide_words)
+
+        wordDb = WordsDatabase.getDatabase(this)
 
         // Initialize your buttons
         val placesButton = findViewById<Button>(R.id.places)

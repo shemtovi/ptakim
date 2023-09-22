@@ -6,7 +6,6 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.*
-import android.view.HapticFeedbackConstants
 import android.view.View
 import android.view.WindowManager
 import android.widget.Button
@@ -17,7 +16,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.room.Room
-import com.idanroey.ptakim_2.db.WordDatabase
+import com.idanroey.ptakim_2.db.WordsDatabase
 import com.idanroey.ptakim_2.utils.Constants.WORDS_ASSET
 import com.idanroey.ptakim_2.utils.Constants.WORDS_DATABASE
 
@@ -81,13 +80,7 @@ class Game : AppCompatActivity() {
         repeat
     )
 
-    private val wordDb: WordDatabase by lazy {
-        Room.databaseBuilder(this, WordDatabase::class.java, WORDS_DATABASE)
-            .allowMainThreadQueries()
-            .fallbackToDestructiveMigration()
-            .createFromAsset(WORDS_ASSET)
-            .build()
-    }
+    private lateinit var wordDb: WordsDatabase
 
 
 
@@ -120,6 +113,8 @@ class Game : AppCompatActivity() {
 
         val roundView = findViewById<TextView>(R.id.round)
         roundView.text = String.format( getString(R.string.round_number),roundNumber)
+
+        wordDb = WordsDatabase.getDatabase(this)
 
         team1 = Team(1)
         team2 = Team(2)

@@ -1,10 +1,8 @@
 package com.idanroey.ptakim_2
 
-import android.content.Context
-import android.util.Log
-import com.idanroey.ptakim_2.db.WordDatabase
+import com.idanroey.ptakim_2.db.WordsDatabase
 
-class Ptakim(db: WordDatabase, filteredCategories: IntArray, private val numberOfWords: Int, private val team1: Team, private val team2: Team) {
+class Ptakim(db: WordsDatabase, filteredCategories: IntArray, private val numberOfWords: Int, private val team1: Team, private val team2: Team) {
 
     var currentTeam: Team
     val wordsArray: Set<String>
