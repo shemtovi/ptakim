@@ -13,10 +13,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import com.idanroey.ptakim_2.db.WordsDatabase
 import com.idanroey.ptakim_2.db.WordInfo
-//import com.idanroey.ptakim_2.db.WordInfo
 
 class hideWords : AppCompatActivity() {
-//    private var wordList: List<Triple<Int, String, Boolean>>? = null
 
     private lateinit var wordsDb: WordsDatabase
 
@@ -60,12 +58,6 @@ class hideWords : AppCompatActivity() {
         setButtonClickAction(natureButton, "Nature")
         setButtonClickAction(scientistsButton, "Scientists")
         setButtonClickAction(hamisiSalofButton, "Hamisi Salof")
-
-        // Set click listener for the start button (You can implement your logic here)
-        val startButton = findViewById<Button>(R.id.start)
-        startButton.setOnClickListener {
-            // Add your code for the start button here
-        }
     }
 
     private fun setButtonClickAction(button: Button, category: String) {
