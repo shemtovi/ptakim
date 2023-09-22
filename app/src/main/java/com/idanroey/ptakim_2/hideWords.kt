@@ -11,17 +11,14 @@ import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.room.Room
 import com.idanroey.ptakim_2.db.WordsDatabase
-import com.idanroey.ptakim_2.db.WordEntity
+import com.idanroey.ptakim_2.db.WordInfo
 //import com.idanroey.ptakim_2.db.WordInfo
-import com.idanroey.ptakim_2.utils.Constants.WORDS_ASSET
-import com.idanroey.ptakim_2.utils.Constants.WORDS_DATABASE
 
 class hideWords : AppCompatActivity() {
 //    private var wordList: List<Triple<Int, String, Boolean>>? = null
 
-    private lateinit var wordDb: WordsDatabase
+    private lateinit var wordsDb: WordsDatabase
 
 
     private val categoriesId = mapOf(
@@ -40,7 +37,7 @@ class hideWords : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hide_words)
 
-        wordDb = WordsDatabase.getDatabase(this)
+        wordsDb = WordsDatabase.getDatabase(this)
 
         // Initialize your buttons
         val placesButton = findViewById<Button>(R.id.places)
@@ -80,7 +77,7 @@ class hideWords : AppCompatActivity() {
 
     private fun showWordListDialog(category: String) {
         // Replace the following with your actual list of words from the database
-        val wordList = wordDb.dao().getAllWordsForCategory(categoriesId[category]!!)
+        val wordList = wordsDb.dao().getAllWordsForCategory(categoriesId[category]!!)
 
         // Create a dialog builder
         val builder = AlertDialog.Builder(this)
@@ -129,15 +126,11 @@ class hideWords : AppCompatActivity() {
 
     }
 
-    private fun hideWord(wordList: Array<WordEntity>, listView: ListView, word: WordEntity, position: Int) {
+    private fun hideWord(wordList: Array<WordInfo>, listView: ListView, word: WordInfo, position: Int) {
         Log.d("hidee", "hiding word ${word.wordText}")
-//        wordDb.dao().hideWord(wordId)
-        val newWord = WordEntity(word.wordId, word.wordText, word.categoryId, 0)
+        val newWord = word.copy(isActive = 0)
         Log.d("hidee", "new word: $newWord")
-        wordDb.dao().updateWord(newWord)
-
-        val updated = wordDb.dao().getWord(newWord.wordId)[0]
-        Log.d("hidee", updated.toString())
+        wordsDb.dao().updateWord(newWord)
 
         // Update the active status in the wordList
         wordList[position] = newWord
@@ -147,19 +140,11 @@ class hideWords : AppCompatActivity() {
         adapter?.notifyDataSetChanged()
     }
 
-    private fun unhideWord(wordList: Array<WordEntity>, listView: ListView, word: WordEntity, position: Int) {
-//        Log.d("hidee", "unhiding word $wordId")
-//        wordDb.dao().unhideWord(wordId)
-//        val newWord = word.copy(isActive = 1)
+    private fun unhideWord(wordList: Array<WordInfo>, listView: ListView, word: WordInfo, position: Int) {
         Log.d("hidee", "unhiding word ${word.wordText}")
-        val newWord = WordEntity(word.wordId, word.wordText, word.categoryId, 1)
+        val newWord = word.copy(isActive = 1)
         Log.d("hidee", "new word: $newWord")
-        wordDb.dao().updateWord(newWord)
-
-
-        val updated = wordDb.dao().getWord(newWord.wordId)[0]
-        Log.d("hidee", updated.toString())
-
+        wordsDb.dao().updateWord(newWord)
 
         // Update the active status in the wordList
         wordList[position] = wordList[position].copy(isActive = 1)
@@ -175,5 +160,4 @@ class hideWords : AppCompatActivity() {
         startActivity(intent)
     }
 
-    // Add other methods and logic as needed for your activity
 }

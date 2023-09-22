@@ -2,7 +2,7 @@ package com.idanroey.ptakim_2
 
 import com.idanroey.ptakim_2.db.WordsDatabase
 
-class Ptakim(db: WordsDatabase, filteredCategories: IntArray, private val numberOfWords: Int, private val team1: Team, private val team2: Team) {
+class Ptakim(wordsDb: WordsDatabase, filteredCategories: IntArray, private val numberOfWords: Int, private val team1: Team, private val team2: Team) {
 
     var currentTeam: Team
     val wordsArray: Set<String>
@@ -34,7 +34,7 @@ class Ptakim(db: WordsDatabase, filteredCategories: IntArray, private val number
         val wordsArray = Array(numberOfWords) { "" }
         var i = 0
         for ((index, category) in filteredCategories.withIndex()) {
-            val words = db.dao().getNWordsByCategory(category, wordsPerCategory[index])
+            val words = wordsDb.dao().getNWordsByCategory(category, wordsPerCategory[index])
             for (word in words) {
                 wordsArray[i++] = word
             }

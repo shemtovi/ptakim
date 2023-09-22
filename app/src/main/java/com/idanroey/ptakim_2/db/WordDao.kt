@@ -25,7 +25,7 @@ interface WordDao {
         WHERE category_id = :categoryId
         ORDER BY word_text
     """)
-    fun getAllWordsForCategory(categoryId: Int): Array<WordEntity>
+    fun getAllWordsForCategory(categoryId: Int): Array<WordInfo>
 
     @Query("""
         SELECT *
@@ -35,5 +35,5 @@ interface WordDao {
     fun getWord(wordId: Int): Array<WordEntity>
 
     @Update(entity = WordEntity::class, onConflict = OnConflictStrategy.REPLACE)
-    fun updateWord(word: WordEntity)
+    fun updateWord(word: WordInfo)
 }

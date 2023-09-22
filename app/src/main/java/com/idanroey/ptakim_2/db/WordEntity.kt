@@ -27,13 +27,11 @@ data class WordEntity(
     val isActive: Int,
 )
 
-//@Entity
-//data class WordInfo(
-//    @PrimaryKey
-//    @ColumnInfo(name = "word_id")
-//    val wordId: Int,
-//    @ColumnInfo(name = "word_text")
-//    val wordText: String,
-//    @ColumnInfo(name = "is_active", defaultValue = "1")
-//    val isActive: Int,
-//)
+data class WordInfo(
+    @ColumnInfo(name = "word_id")
+    val wordId: Int,
+    @ColumnInfo(name = "word_text")
+    val wordText: String,
+    @ColumnInfo(name = "is_active", defaultValue = "1")
+    val isActive: Int,
+)

@@ -15,10 +15,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
-import androidx.room.Room
 import com.idanroey.ptakim_2.db.WordsDatabase
-import com.idanroey.ptakim_2.utils.Constants.WORDS_ASSET
-import com.idanroey.ptakim_2.utils.Constants.WORDS_DATABASE
 
 
 class Game : AppCompatActivity() {
@@ -80,7 +77,7 @@ class Game : AppCompatActivity() {
         repeat
     )
 
-    private lateinit var wordDb: WordsDatabase
+    private lateinit var wordsDb: WordsDatabase
 
 
 
@@ -114,11 +111,11 @@ class Game : AppCompatActivity() {
         val roundView = findViewById<TextView>(R.id.round)
         roundView.text = String.format( getString(R.string.round_number),roundNumber)
 
-        wordDb = WordsDatabase.getDatabase(this)
+        wordsDb = WordsDatabase.getDatabase(this)
 
         team1 = Team(1)
         team2 = Team(2)
-        game = Ptakim(wordDb, selectedCategories, numberOfWords, team1, team2)
+        game = Ptakim(wordsDb, selectedCategories, numberOfWords, team1, team2)
 
         player1Score = findViewById(R.id.player1_ScoreBoard)
         player2Score = findViewById(R.id.player2_ScoreBoard)
